@@ -42,6 +42,9 @@
             } else {
                 $('.vi-wcaio-menu-cart').removeClass('vi-wcaio-menu-cart-show');
             }
+
+            /* Since 1.1.16 */
+            vi_wcaio_add_editing_boundary();
         });
     });
     wp.customize('woo_cart_all_in_one_params[sc_enable]', function (value) {
@@ -694,5 +697,143 @@
                 $('#vi-wcaio-preview-' + name).html(element + '{' + style + ':' + newval + suffix + '}');
             })
         })
+    }
+
+    function vi_wcaio_add_editing_boundary() {
+        let customStyle = document.createElement('style');
+        customStyle.innerHTML = `
+        .vi-wcaio-customize-editing::before,
+        .vi-wacio-customize-editing-boundary-right,
+        .vi-wacio-customize-editing-boundary-bottom,
+        .vi-wacio-customize-editing-boundary-left {
+            content: "";
+            display: block;
+            top:0;
+            left:0;
+            position: absolute;
+            background-color: #f9897b;
+            opacity: 0;
+        }
+        
+        .vi-wcaio-customize-editing::before {
+            width: 100%;
+            height: 1px;
+        }
+        
+        .vi-wacio-customize-editing-boundary-right {
+            width: 1px;
+            height: 100%;
+            left: unset;
+            right:0
+        }
+        
+        .vi-wacio-customize-editing-boundary-bottom {
+            width: 100%;
+            height: 1px;
+            top: unset;
+            bottom: 0;
+        }
+        
+        .vi-wacio-customize-editing-boundary-left {
+            width: 1px;
+            height: 100%;
+        }
+
+        .vi-wcaio-customize-editing-button {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            position: absolute;
+            background-color: #f9897b;
+            line-height: 1.5;
+            border: 1px solid #fa663a;
+            color: #fff;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, 0);
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            padding: 0px 12px 2px;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0;
+        }
+        .vi-wcaio-customize-editing-button:hover {
+            opacity: 1 !important;
+        }
+        .vi-wcaio-customize-editing:hover::before,
+        .vi-wcaio-customize-editing:hover > .vi-wcaio-customize-editing-button,
+        .vi-wcaio-customize-editing:hover > div[class^="vi-wacio-customize-editing-boundary"] {
+            opacity: 0.5;
+        }
+    `;
+        $(document.head).append(customStyle);
+        let editing_boxes = [
+            {
+                selector: '.vi-wcaio-sidebar-cart-content-wrap',
+                label: 'General',
+                section: 'vi_wcaio_design_sidebar_cart_general'
+            },
+            {
+                selector: '.vi-wcaio-sidebar-cart-header-wrap',
+                label: 'Header',
+                section: 'vi_wcaio_design_sidebar_header'
+            },
+            {
+                selector: '.vi-wcaio-sidebar-cart-products-wrap',
+                label: 'List products',
+                section: 'vi_wcaio_design_sidebar_products'
+            },
+            {
+                selector: '.vi-wcaio-sidebar-cart-footer-wrap',
+                label: 'Footer',
+                section: 'vi_wcaio_design_sidebar_footer'
+            },
+            {
+                selector: '.vi-wcaio-menu-cart',
+                label: 'Menu cart',
+                section: 'vi_wcaio_design_menu_cart'
+            },
+            {
+                selector: '.vi-wcaio-sb-container',
+                label: 'Sticky bar',
+                section: 'vi_wcaio_design_sticky_atc'
+            },
+            {
+                selector: '.vi-wcaio-sidebar-cart-icon-wrap',
+                label: 'Icon',
+                section: 'vi_wcaio_design_sidebar_cart_icon'
+            },
+        ]
+        editing_boxes.forEach(function(el) {
+            let editSection = $(el.selector);
+            let editButton = $(`<div class="vi-wcaio-customize-editing-button">${el.label}</div>`);
+            let boundary =   $('<div class="vi-wacio-customize-editing-boundary-right"></div><div class="vi-wacio-customize-editing-boundary-bottom"></div><div class="vi-wacio-customize-editing-boundary-left"></div>')
+            editButton.on('click', function(event) {
+                event.stopPropagation();
+                wp.customize.preview.send('vi_wcaio_open_edit_panel',el.section);
+            })
+            editSection.addClass('vi-wcaio-customize-editing');
+            if( editSection.css('position') === 'static' ) {
+                editSection.css('position','relative');
+            }
+            editSection.append(editButton);
+            editSection.append(boundary);
+            if ( el.selector === '.vi-wcaio-sidebar-cart-content-wrap' ) {
+                editButton.css({
+                    left: 0,
+                    transform: 'rotate(270deg) translateY(-30px)',
+                    top: '45%'
+                })
+            }
+            if (el.selector === '.vi-wcaio-sidebar-cart-icon-wrap' ) {
+                editButton.css({
+                    top: '-10px'
+                })
+            }
+        });
     }
 })(jQuery);

@@ -242,14 +242,14 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Sidebar_Cart_Icon {
 				$assign_page = "return (" . $assign_page . ");";
 			}
 			try {
-				$logic_show = eval( $assign_page);
+				$logic_show = eval( $assign_page);// phpcs:ignore Generic.PHP.ForbiddenFunctions.Found
 			}
 			catch ( \Error $e ) {
-				trigger_error( $e->getMessage(), E_USER_WARNING );
+				trigger_error( wp_kses_post( $e->getMessage() ), E_USER_WARNING );
 
 				$logic_show = false;
 			}catch ( \Exception $e ) {
-				trigger_error( $e->getMessage(), E_USER_WARNING );
+				trigger_error( wp_kses_post( $e->getMessage() ), E_USER_WARNING );
 
 				$logic_show = false;
 			}

@@ -5,7 +5,7 @@ Tags: Cart All In One For Woocommerce, woocommerce mini cart, wc mini cart, wc c
 Requires at least: 5.0
 Tested up to: 6.5
 WC tested up to: 8.7
-Stable tag: 1.1.15
+Stable tag: 1.1.16
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Cart All In One For WooCommerce helps your customers view cart effortlessly.
@@ -276,6 +276,10 @@ All features from the free version.
 2. Checkout area on Sidebar Cart
 
 == Changelog ==
+/**1.1.16 - 2024.10.28**/
+- Updated: Compatible with WP 6.6 and WC 9.3
+- Updated: Enhanced UX in customize
+
 /**1.1.15 - 2024.04.26**/
 – Updated: Delete the old description for the 'Assign page' and add the link of the WC condition tag
 

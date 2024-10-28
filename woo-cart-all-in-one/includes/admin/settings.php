@@ -10,6 +10,7 @@ class VI_WOO_CART_ALL_IN_ONE_Admin_Settings {
 	}
 
 	public function viwcaio_search_cats() {
+		check_ajax_referer('_vi_wcaio_setting_cart_action', 'nonce' );
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
@@ -41,6 +42,7 @@ class VI_WOO_CART_ALL_IN_ONE_Admin_Settings {
 	}
 
 	public function viwcaio_search_product() {
+		check_ajax_referer('_vi_wcaio_setting_cart_action', 'nonce' );
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}

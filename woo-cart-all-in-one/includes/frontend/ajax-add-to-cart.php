@@ -19,9 +19,9 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Ajax_Add_to_Cart {
 			return;
 		}
 		if ( WP_DEBUG ) {
-			wp_enqueue_script( 'vi-wcaio-ajax-atc', VI_WOO_CART_ALL_IN_ONE_JS . 'ajax-add-to-cart.js', array( 'jquery' ), VI_WOO_CART_ALL_IN_ONE_VERSION );
+			wp_enqueue_script( 'vi-wcaio-ajax-atc', VI_WOO_CART_ALL_IN_ONE_JS . 'ajax-add-to-cart.js', array( 'jquery' ), VI_WOO_CART_ALL_IN_ONE_VERSION, false );
 		} else {
-			wp_enqueue_script( 'vi-wcaio-ajax-atc', VI_WOO_CART_ALL_IN_ONE_JS . 'ajax-add-to-cart.min.js', array( 'jquery' ), VI_WOO_CART_ALL_IN_ONE_VERSION );
+			wp_enqueue_script( 'vi-wcaio-ajax-atc', VI_WOO_CART_ALL_IN_ONE_JS . 'ajax-add-to-cart.min.js', array( 'jquery' ), VI_WOO_CART_ALL_IN_ONE_VERSION, false );
 		}
 		$args = array(
 			'ajax_atc'                            => 1,

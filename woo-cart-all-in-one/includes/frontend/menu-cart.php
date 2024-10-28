@@ -72,7 +72,7 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Menu_Cart {
 		?>
         <li class="<?php echo esc_attr( $class ); ?>" data-empty_enable="<?php echo esc_attr( $mc_empty_enable ?: '' ); ?>"
             data-open_sidebar="<?php echo esc_attr( $mc_nav_page==='open_sidebar' ? 1 : '' ); ?>">
-            <a href="<?php echo esc_attr( $nav_url ?: '#' ); ?>" title="<?php echo apply_filters( 'vi_wcaio_menu_nav_title', esc_attr( $nav_title ) ); ?>" class="vi-wcaio-menu-cart-nav-wrap">
+            <a href="<?php echo esc_attr( $nav_url ?: '#' ); ?>" title="<?php echo esc_attr( apply_filters( 'vi_wcaio_menu_nav_title', esc_attr( $nav_title ) ) ); ?>" class="vi-wcaio-menu-cart-nav-wrap">
                     <span class="vi-wcaio-menu-cart-icon">
                         <i class="<?php echo esc_attr( $this->settings->get_class_icon( $this->settings->get_params( 'mc_icon' ), 'cart_icons' ) ); ?>"></i>
                     </span>
@@ -126,9 +126,9 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Menu_Cart {
 		wp_register_style( 'vi-wcaio-cart-icons', VI_WOO_CART_ALL_IN_ONE_CSS . 'cart-icons.min.css', array(), VI_WOO_CART_ALL_IN_ONE_VERSION );
 		wp_register_style( 'vi-wcaio-menu-cart', VI_WOO_CART_ALL_IN_ONE_CSS . 'menu-cart.min.css', array(), VI_WOO_CART_ALL_IN_ONE_VERSION );
 		if ( WP_DEBUG ) {
-			wp_register_script( 'vi-wcaio-menu-cart', VI_WOO_CART_ALL_IN_ONE_JS . 'menu-cart.js', array( 'jquery' ), VI_WOO_CART_ALL_IN_ONE_VERSION );
+			wp_register_script( 'vi-wcaio-menu-cart', VI_WOO_CART_ALL_IN_ONE_JS . 'menu-cart.js', array( 'jquery' ), VI_WOO_CART_ALL_IN_ONE_VERSION, false );
 		} else {
-			wp_register_script( 'vi-wcaio-menu-cart', VI_WOO_CART_ALL_IN_ONE_JS . 'menu-cart.min.js', array( 'jquery' ), VI_WOO_CART_ALL_IN_ONE_VERSION );
+			wp_register_script( 'vi-wcaio-menu-cart', VI_WOO_CART_ALL_IN_ONE_JS . 'menu-cart.min.js', array( 'jquery' ), VI_WOO_CART_ALL_IN_ONE_VERSION, false );
 		}
 		if ( ! is_customize_preview() ) {
 			$css = $this->get_inline_css();

@@ -13,8 +13,8 @@ $img_url           = wp_get_attachment_image_url( get_post_thumbnail_id( $produc
 	<div class="vi-wcaio-sidebar-cart-footer-pd-desc-wrap">
 		<div class="vi-wcaio-sidebar-cart-footer-pd-img">
 			<?php
-			echo $product_permalink ? sprintf( '<a href="%s"><img src="" data-src="%s" class="vi-wcaio-sidebar-cart-footer-pd-img1" alt="%s"></a>', esc_url( $product_permalink ), esc_url( $img_url ), $product_name ) :
-				sprintf( '<img src="" data-src="%s" class="vi-wcaio-sidebar-cart-footer-pd-img1" alt="%s">', esc_url( $img_url ), $product_name );
+			echo $product_permalink ? sprintf( '<a href="%s"><img src="" data-src="%s" class="vi-wcaio-sidebar-cart-footer-pd-img1" alt="%s"></a>', esc_url( $product_permalink ), esc_url( $img_url ), wp_kses_post( $product_name ) ) :
+				sprintf( '<img src="" data-src="%s" class="vi-wcaio-sidebar-cart-footer-pd-img1" alt="%s">', esc_url( $img_url ), wp_kses_post( $product_name ) );
 			?>
 		</div>
 		<div class="vi-wcaio-sidebar-cart-footer-pd-desc">

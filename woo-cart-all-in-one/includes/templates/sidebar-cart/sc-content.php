@@ -44,7 +44,7 @@ $settings_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $settings_json 
                     <input type="text" name="coupon_code" id="coupon_code" class="vi-wcaio-coupon-code"
                            placeholder="<?php echo esc_attr( $last_applied_coupon_t ); ?>">
                     <button type="submit" class="button vi-wcaio-bt-coupon-code" name="apply_coupon">
-						<?php echo sprintf( '%s', apply_filters( 'vi_wcaio_get_bt_coupon_text', esc_html__( 'Apply', 'woo-cart-all-in-one' ) ) ); ?>
+						<?php echo sprintf( '%s', esc_html( apply_filters( 'vi_wcaio_get_bt_coupon_text', esc_html__( 'Apply', 'woo-cart-all-in-one' ) ) ) ); ?>
                     </button>
                 </div>
 				<?php

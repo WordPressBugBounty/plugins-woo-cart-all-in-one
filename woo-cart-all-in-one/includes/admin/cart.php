@@ -273,7 +273,7 @@ class VI_WOO_CART_ALL_IN_ONE_Admin_Cart {
 										$menus = wp_get_nav_menus();
 										foreach ( $menus as $menu ) {
 											$selected = in_array( $menu->term_id, $mc_menu_display ) ? 'selected="selected"' : '';
-											echo sprintf( '<option value="%s" %s>%s</option>', $menu->term_id, $selected, $menu->name );
+											echo sprintf( '<option value="%s" %s>%s</option>', esc_attr( $menu->term_id ), esc_attr( $selected ), wp_kses_post( $menu->name ) );
 										}
 										?>
                                     </select>
@@ -332,7 +332,7 @@ class VI_WOO_CART_ALL_IN_ONE_Admin_Cart {
 											foreach ( $ajax_atc_pd_exclude as $product_id ) {
 												$product = wc_get_product( $product_id );
 												if ( $product ) {
-													echo sprintf( '<option value="%s" selected>%s</option>', $product_id, $product->get_name() );
+													echo sprintf( '<option value="%s" selected>%s</option>', esc_attr( $product_id ), wp_kses_post( $product->get_name() ) );
 												}
 											}
 										}
@@ -436,7 +436,7 @@ class VI_WOO_CART_ALL_IN_ONE_Admin_Cart {
 	}
 
 	public function admin_enqueue_scripts() {
-		$page = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : '';
+		$page = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : '';// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( $page === 'woo-cart-all-in-one' ) {
 			$admin = 'VI_WOO_CART_ALL_IN_ONE_Admin_Settings';
 			$admin::remove_other_script();

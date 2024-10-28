@@ -27,12 +27,12 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Sidebar_Cart_Content {
 		wp_enqueue_style( 'vi-wcaio-loading', VI_WOO_CART_ALL_IN_ONE_CSS . 'loading.min.css', array(), VI_WOO_CART_ALL_IN_ONE_VERSION );
 		$suffix = WP_DEBUG ? '' : 'min.';
 		wp_enqueue_style( 'vi-wcaio-sidebar-cart-content', VI_WOO_CART_ALL_IN_ONE_CSS . 'sidebar-cart-content.' . $suffix . 'css', array(), VI_WOO_CART_ALL_IN_ONE_VERSION );
-		wp_enqueue_script( 'vi-wcaio-sidebar-cart', VI_WOO_CART_ALL_IN_ONE_JS . 'sidebar-cart.' . $suffix . 'js', array( 'jquery' ), VI_WOO_CART_ALL_IN_ONE_VERSION );
+		wp_enqueue_script( 'vi-wcaio-sidebar-cart', VI_WOO_CART_ALL_IN_ONE_JS . 'sidebar-cart.' . $suffix . 'js', array( 'jquery' ), VI_WOO_CART_ALL_IN_ONE_VERSION, false );
 		wp_enqueue_style( 'vi-wcaio-cart-icons', VI_WOO_CART_ALL_IN_ONE_CSS . 'cart-icons.min.css', array(), VI_WOO_CART_ALL_IN_ONE_VERSION );
 		if ( ( $has_product_plus !== false ) || $this->is_customize ) {
 			wp_enqueue_style( 'vi-wcaio-nav-icons', VI_WOO_CART_ALL_IN_ONE_CSS . 'nav-icons.min.css', array(), VI_WOO_CART_ALL_IN_ONE_VERSION );
 			wp_enqueue_style( 'vi-wcaio-flexslider', VI_WOO_CART_ALL_IN_ONE_CSS . 'sc-flexslider.min.css', array(), VI_WOO_CART_ALL_IN_ONE_VERSION );
-			wp_enqueue_script( 'vi-wcaio-flexslider', VI_WOO_CART_ALL_IN_ONE_JS . 'flexslider.min.js', array( 'jquery' ), VI_WOO_CART_ALL_IN_ONE_VERSION );
+			wp_enqueue_script( 'vi-wcaio-flexslider', VI_WOO_CART_ALL_IN_ONE_JS . 'flexslider.min.js', array( 'jquery' ), VI_WOO_CART_ALL_IN_ONE_VERSION, false );
 		}
 		if ( ! $this->is_customize ) {
 			$args = array(
@@ -333,14 +333,14 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Sidebar_Cart_Content {
 			    $assign_page = "return (" . $assign_page . ");";
 		    }
 		    try {
-			    $logic_show = eval( $assign_page);
+			    $logic_show = eval( $assign_page);// phpcs:ignore Generic.PHP.ForbiddenFunctions.Found
 		    }
 		    catch ( \Error $e ) {
-			    trigger_error( $e->getMessage(), E_USER_WARNING );
+			    trigger_error( wp_kses_post( $e->getMessage() ), E_USER_WARNING );
 
 			    $logic_show = false;
 		    }catch ( \Exception $e ) {
-			    trigger_error( $e->getMessage(), E_USER_WARNING );
+			    trigger_error( wp_kses_post( $e->getMessage() ), E_USER_WARNING );
 
 			    $logic_show = false;
 		    }
@@ -491,13 +491,13 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Sidebar_Cart_Content {
 				$args = array(
 					'post_type'      => 'product',
 					'post_status'    => 'publish',
-					'meta_key'       => 'total_sales',
+					'meta_key'       => 'total_sales',// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 					'orderby'        => 'meta_value_num',
 					'order'          => 'DESC',
 					'posts_per_page' => $limit
 				);
 				if ( $product_visibility_hidden ) {
-					$args['tax_query'] = array(
+					$args['tax_query'] = array(// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 						array(
 							'taxonomy' => 'product_visibility',
 							'terms'    => array( 'exclude-from-catalog', 'exclude-from-search' ),
@@ -507,7 +507,7 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Sidebar_Cart_Content {
 					);
 				}
 				if ( ! $out_of_stock ) {
-					$args['meta_query'] = array(
+					$args['meta_query'] = array(// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 						'relation' => 'AND',
 						array(
 							'key'     => '_stock_status',
@@ -566,13 +566,13 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Sidebar_Cart_Content {
 			case 'product_rating':
 				$args = array(
 					'post_type'      => 'product',
-					'meta_key'       => '_wc_average_rating',
+					'meta_key'       => '_wc_average_rating',// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 					'orderby'        => 'meta_value_num',
 					'order'          => 'DESC',
 					'posts_per_page' => $limit
 				);
 				if ( $product_visibility_hidden ) {
-					$args['tax_query'] = array(
+					$args['tax_query'] = array(// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 						array(
 							'taxonomy' => 'product_visibility',
 							'terms'    => array( 'exclude-from-catalog', 'exclude-from-search' ),
@@ -582,7 +582,7 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Sidebar_Cart_Content {
 					);
 				}
 				if ( ! $out_of_stock ) {
-					$args['meta_query'] = array(
+					$args['meta_query'] = array(// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 						'relation' => 'AND',
 						array(
 							'key'     => '_stock_status',

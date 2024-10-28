@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 if (!$wc_cart || $wc_cart->is_empty() ){
 	echo sprintf( '<li class="vi-wcaio-sidebar-cart-pd-empty">%s</li>',
-		apply_filters( 'vi_wcaio_get_cart_empty_text', esc_html__( 'No products in the cart.', 'woo-cart-all-in-one' ) ) );
+		wp_kses_post( apply_filters( 'vi_wcaio_get_cart_empty_text', esc_html__( 'No products in the cart.', 'woo-cart-all-in-one' ) ) ) );
 	return;
 }
 $settings = $sidebar_cart::$settings;
@@ -19,7 +19,7 @@ foreach ( $wc_cart->get_cart() as $cart_item_key => $cart_item ) {
 		?>
 		<li class="vi-wcaio-sidebar-cart-pd-wrap" data-cart_item_key="<?php echo esc_attr( $cart_item_key ); ?>" data-product_id="<?php echo esc_attr( $product_id ); ?>">
 			<div class="vi-wcaio-sidebar-cart-pd-img-wrap">
-				<?php echo $product_permalink ? sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $product_thumbnail ) : wp_kses_post( $product_thumbnail ); ?>
+				<?php echo $product_permalink ? sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), wp_kses_post( $product_thumbnail ) ) : wp_kses_post( $product_thumbnail ); ?>
 			</div>
 			<div class="vi-wcaio-sidebar-cart-pd-info-wrap">
 				<div class="vi-wcaio-sidebar-cart-pd-name-wrap">
@@ -32,14 +32,14 @@ foreach ( $wc_cart->get_cart() as $cart_item_key => $cart_item ) {
 					?>
 					<div class="vi-wcaio-sidebar-cart-pd-remove-wrap">
 						<?php
-						echo apply_filters( 'vi_wcaio_mini_cart_pd_remove',
+						echo apply_filters( 'vi_wcaio_mini_cart_pd_remove',// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 							sprintf( '<a href="%s" class="vi-wcaio-sidebar-cart-pd-remove" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s"><i class="%s"></i></a>',
 								esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
 								esc_html__( 'Remove this item', 'woo-cart-all-in-one' ),
 								esc_attr( $product_id ),
 								esc_attr( $cart_item_key ),
 								esc_attr( $product->get_sku() ),
-								$delete_icon_class
+								esc_attr( $delete_icon_class )
 							), $cart_item, $cart_item_key );
 						?>
 					</div>
@@ -50,8 +50,8 @@ foreach ( $wc_cart->get_cart() as $cart_item_key => $cart_item ) {
 				<div class="vi-wcaio-sidebar-cart-pd-desc">
 					<?php
 					if ( $product->is_sold_individually() ) {
-						echo apply_filters( 'vi_wcaio_mini_cart_pd_qty',
-							sprintf( '<div class="vi-wcaio-sidebar-cart-pd-quantity vi-wcaio-hidden"><input type="hidden" name="viwcaio_cart[%s][qty]" value="1"></div>', $cart_item_key ),
+						echo apply_filters( 'vi_wcaio_mini_cart_pd_qty',// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+							sprintf( '<div class="vi-wcaio-sidebar-cart-pd-quantity vi-wcaio-hidden"><input type="hidden" name="viwcaio_cart[%s][qty]" value="1"></div>', esc_attr( $cart_item_key ) ),
 							$cart_item_key, $cart_item, [] );
 					} else {
 						$quantity_args = apply_filters( 'viwcaio_quantity_input_args', array(
@@ -62,7 +62,7 @@ foreach ( $wc_cart->get_cart() as $cart_item_key => $cart_item ) {
 							'classes'      => [ 'vi_wcaio_qty' ],
 							'product_name' => $product->get_name()
 						), $product );
-						echo apply_filters( 'vi_wcaio_mini_cart_pd_qty', $sidebar_cart::get_sc_pd_quantity_html( $quantity_args ), $cart_item_key, $cart_item, $quantity_args );
+						echo apply_filters( 'vi_wcaio_mini_cart_pd_qty', $sidebar_cart::get_sc_pd_quantity_html( $quantity_args ), $cart_item_key, $cart_item, $quantity_args );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}
 					$sc_pd_price_style =$sc_pd_price_style ?? $settings->get_params( 'sc_pd_price_style' );
 					?>

@@ -1,4 +1,8 @@
-/**1.1.15 - 2024.04.26**/
+/**1.1.16 - 2024.10.28**/
+- Updated: Compatible with WP 6.6 and WC 9.3
+- Updated: Enhanced UX in customize
+
+**1.1.15 - 2024.04.26**/
 – Updated: Delete the old description for the 'Assign page' and add the link of the WC condition tag
 
 /**1.1.14 - 2024.04.13**/

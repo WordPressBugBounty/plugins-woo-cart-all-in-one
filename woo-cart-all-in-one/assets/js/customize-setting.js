@@ -6,6 +6,14 @@ jQuery(document).ready(function ($) {
     viwcaio_sc_header_design();
     viwcaio_sc_footer_design();
 
+    /* Added since 1.1.16 */
+    viwcaio_handle_open_edit_panel();
+    function viwcaio_handle_open_edit_panel() {
+        wp.customize.previewer.bind('vi_wcaio_open_edit_panel', function( section ) {
+            wp.customize.section( section ).expanded(true);
+        });
+    }
+
     function viwcaio_design_init() {
         $('.vi-wcaio-customize-range').each(function () {
             let range_wrap = $(this),

@@ -30,24 +30,24 @@ class VI_WOO_CART_ALL_IN_ONE_Admin_Design {
             .vi-wcaio-sidebar-cart.vi-wcaio-sidebar-cart-1.vi-wcaio-sidebar-cart-top_left,
             .vi-wcaio-sidebar-cart-icon-wrap-top_left, .vi-wcaio-sidebar-cart-icon-wrap-bottom_left,
             .vi-wcaio-sidebar-cart.vi-wcaio-sidebar-cart-1.vi-wcaio-sidebar-cart-bottom_left {
-                left: <?php echo sprintf('%spx',$sc_horizontal); ?>;
+                left: <?php echo sprintf('%spx', esc_attr( $sc_horizontal ) ); ?>;
             }
 
             .vi-wcaio-sidebar-cart.vi-wcaio-sidebar-cart-1.vi-wcaio-sidebar-cart-top_right,
             .vi-wcaio-sidebar-cart-icon-wrap-top_right, .vi-wcaio-sidebar-cart-icon-wrap-bottom_right,
             .vi-wcaio-sidebar-cart.vi-wcaio-sidebar-cart-1.vi-wcaio-sidebar-cart-bottom_right{
-                right: <?php echo sprintf('%spx',$sc_horizontal); ?>;
+                right: <?php echo sprintf('%spx', esc_attr( $sc_horizontal ) ); ?>;
             }
 
             @media screen and (max-width: 768px) {
                 .vi-wcaio-sidebar-cart.vi-wcaio-sidebar-cart-1.vi-wcaio-sidebar-cart-top_left .vi-wcaio-sidebar-cart-content-wrap,
                 .vi-wcaio-sidebar-cart.vi-wcaio-sidebar-cart-1.vi-wcaio-sidebar-cart-bottom_left .vi-wcaio-sidebar-cart-content-wrap {
-                    left: <?php echo sprintf('%spx', $sc_horizontal_mobile); ?>;
+                    left: <?php echo sprintf('%spx', esc_attr( $sc_horizontal_mobile ) ); ?>;
                 }
 
                 .vi-wcaio-sidebar-cart.vi-wcaio-sidebar-cart-1.vi-wcaio-sidebar-cart-top_right .vi-wcaio-sidebar-cart-content-wrap,
                 .vi-wcaio-sidebar-cart.vi-wcaio-sidebar-cart-1.vi-wcaio-sidebar-cart-bottom_right .vi-wcaio-sidebar-cart-content-wrap {
-                    right: <?php echo sprintf('%spx',$sc_horizontal_mobile); ?>;
+                    right: <?php echo sprintf('%spx', esc_attr( $sc_horizontal_mobile ) ); ?>;
                 }
             }
         </style>
@@ -59,24 +59,24 @@ class VI_WOO_CART_ALL_IN_ONE_Admin_Design {
             .vi-wcaio-sidebar-cart.vi-wcaio-sidebar-cart-1.vi-wcaio-sidebar-cart-top_left,
             .vi-wcaio-sidebar-cart-icon-wrap-top_left, .vi-wcaio-sidebar-cart-icon-wrap-top_right,
             .vi-wcaio-sidebar-cart.vi-wcaio-sidebar-cart-1.vi-wcaio-sidebar-cart-top_right{
-                top: <?php echo sprintf('%spx',$sc_vertical); ?>;
+                top: <?php echo sprintf('%spx', esc_attr( $sc_vertical ) ); ?>;
             }
 
             .vi-wcaio-sidebar-cart.vi-wcaio-sidebar-cart-1.vi-wcaio-sidebar-cart-bottom_right,
             .vi-wcaio-sidebar-cart.vi-wcaio-sidebar-cart-1.vi-wcaio-sidebar-cart-bottom_left,
             .vi-wcaio-sidebar-cart-icon-wrap-bottom_right, .vi-wcaio-sidebar-cart-icon-wrap-bottom_left{
-                bottom: <?php echo sprintf('%spx',$sc_vertical); ?>;
+                bottom: <?php echo sprintf('%spx', esc_attr( $sc_vertical ) ); ?>;
             }
 
             @media screen and (max-width: 768px) {
                 .vi-wcaio-sidebar-cart.vi-wcaio-sidebar-cart-1.vi-wcaio-sidebar-cart-top_left .vi-wcaio-sidebar-cart-content-wrap,
                 .vi-wcaio-sidebar-cart.vi-wcaio-sidebar-cart-1.vi-wcaio-sidebar-cart-top_right .vi-wcaio-sidebar-cart-content-wrap {
-                    top: <?php echo sprintf('%spx', $sc_vertical_mobile); ?>;
+                    top: <?php echo sprintf('%spx', esc_attr( $sc_vertical_mobile ) ); ?>;
                 }
 
                 .vi-wcaio-sidebar-cart.vi-wcaio-sidebar-cart-1.vi-wcaio-sidebar-cart-bottom_right .vi-wcaio-sidebar-cart-content-wrap,
                 .vi-wcaio-sidebar-cart.vi-wcaio-sidebar-cart-1.vi-wcaio-sidebar-cart-bottom_left .vi-wcaio-sidebar-cart-content-wrap {
-                    bottom: <?php echo sprintf('%spx',$sc_vertical_mobile); ?>;
+                    bottom: <?php echo sprintf('%spx', esc_attr( $sc_vertical_mobile ) ); ?>;
                 }
             }
         </style>

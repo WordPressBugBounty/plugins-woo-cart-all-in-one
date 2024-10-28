@@ -73,7 +73,7 @@ $product_name = $product->get_name();
 					'classes'      => [ 'vi-wcaio-va-qty-input' ],
 					'product_name' => $product_name
 				), $product );
-				echo apply_filters( 'vi_wcaio_va_qty', VI_WOO_CART_ALL_IN_ONE_Frontend_Frontend::product_get_quantity_html( $quantity_args ), $product, $quantity_args );
+				echo apply_filters( 'vi_wcaio_va_qty', VI_WOO_CART_ALL_IN_ONE_Frontend_Frontend::product_get_quantity_html( $quantity_args ), $product, $quantity_args );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				?>
 			</div>
 			<div class="vi-wcaio-va-action-wrap">

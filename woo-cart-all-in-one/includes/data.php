@@ -360,7 +360,7 @@ class VI_WOO_CART_ALL_IN_ONE_DATA {
 			return implode( ' ', array_map( array( $this, 'set' ), $name ) );
 
 		} else {
-			return esc_attr__( $this->prefix . $name );
+			return esc_attr( $this->prefix . $name );
 
 		}
 	}

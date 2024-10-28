@@ -50,9 +50,9 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Variable_Atc {
 		wp_register_style( 'vi-wcaio-variable-atc', VI_WOO_CART_ALL_IN_ONE_CSS . 'variable-atc.min.css', array(), VI_WOO_CART_ALL_IN_ONE_VERSION );
 		wp_register_style( 'vi-wcaio-nav-icons', VI_WOO_CART_ALL_IN_ONE_CSS . 'nav-icons.min.css', array(), VI_WOO_CART_ALL_IN_ONE_VERSION );
 		$suffix = WP_DEBUG ? '' : 'min.';
-		wp_register_script( 'vi-wcaio-variable-atc', VI_WOO_CART_ALL_IN_ONE_JS . 'variable-atc.' . $suffix . 'js', array( 'jquery' ), VI_WOO_CART_ALL_IN_ONE_VERSION );
-		wp_register_script( 'vi-wcaio-ajax-atc', VI_WOO_CART_ALL_IN_ONE_JS . 'ajax-add-to-cart.' . $suffix . 'js', array( 'jquery' ), VI_WOO_CART_ALL_IN_ONE_VERSION );
-		wp_register_script( 'vi-wcaio-frontend-swatches', VI_WOO_CART_ALL_IN_ONE_JS . 'frontend-swatches.' . $suffix . 'js', array( 'jquery' ), VI_WOO_CART_ALL_IN_ONE_VERSION );
+		wp_register_script( 'vi-wcaio-variable-atc', VI_WOO_CART_ALL_IN_ONE_JS . 'variable-atc.' . $suffix . 'js', array( 'jquery' ), VI_WOO_CART_ALL_IN_ONE_VERSION, false );
+		wp_register_script( 'vi-wcaio-ajax-atc', VI_WOO_CART_ALL_IN_ONE_JS . 'ajax-add-to-cart.' . $suffix . 'js', array( 'jquery' ), VI_WOO_CART_ALL_IN_ONE_VERSION, false );
+		wp_register_script( 'vi-wcaio-frontend-swatches', VI_WOO_CART_ALL_IN_ONE_JS . 'frontend-swatches.' . $suffix . 'js', array( 'jquery' ), VI_WOO_CART_ALL_IN_ONE_VERSION, false );
 		$args = array(
 			'wc_ajax_url' => WC_AJAX::get_endpoint( "%%endpoint%%" ),
 		);
