@@ -3,9 +3,9 @@ Contributors: villatheme, mrt3vn
 Donate link: http://www.villatheme.com/donate
 Tags: Cart All In One For Woocommerce, woocommerce mini cart, wc mini cart, wc cart, wc sticky cart
 Requires at least: 5.0
-Tested up to: 6.5
-WC tested up to: 8.7
-Stable tag: 1.1.16
+Tested up to: 6.7
+WC tested up to: 9.5
+Stable tag: trunk
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Cart All In One For WooCommerce helps your customers view cart effortlessly.
@@ -171,7 +171,7 @@ All features from the free version.
 
 - [Project Page](https://villatheme.com/extensions/woocommerce-cart-all-in-one/)
 - [Documentation](http://docs.villatheme.com/?item=woocommerce-cart-all-in-one)
-- [Report Bugs/Issues](https://villatheme.com/supports)
+- [Report Bugs/Issues](https://villatheme.com/knowledge-base/security-is-our-priority/)
 
 ### MAY BE YOU NEED
 
@@ -276,6 +276,10 @@ All features from the free version.
 2. Checkout area on Sidebar Cart
 
 == Changelog ==
+/**1.1.17 - 2024.12.28**/
+- Updated: Compatible with WP 6.7 and WC 9.5
+- Updated: Update support class
+
 /**1.1.16 - 2024.10.28**/
 - Updated: Compatible with WP 6.6 and WC 9.3
 - Updated: Enhanced UX in customize
