@@ -276,6 +276,9 @@ All features from the free version.
 2. Checkout area on Sidebar Cart
 
 == Changelog ==
+/**1.1.18 - 2025.02.28**/
+- Updated: Update support file
+
 /**1.1.17 - 2024.12.28**/
 - Updated: Compatible with WP 6.7 and WC 9.5
 - Updated: Update support class

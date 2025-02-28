@@ -44,6 +44,7 @@ class VI_WOO_CART_ALL_IN_ONE_Admin_Admin {
 					'css'       => VI_WOO_CART_ALL_IN_ONE_CSS,
 					'image'     => VI_WOO_CART_ALL_IN_ONE_IMAGES,
 					'slug'      => 'woo-cart-all-in-one',
+					'deactivate_id'      => 'cart-all-in-one-for-woocommerce',
 					'menu_slug' => 'woo-cart-all-in-one',
 					'survey_url' => 'https://script.google.com/macros/s/AKfycbxXh0MFifOzRoBlj7QcZYDOSfbHlmmHF2XzLJcUQOSdZ3xZ2NgI1v3tNGWiLcAUN4Qi/exec',
 					'version'   => VI_WOO_CART_ALL_IN_ONE_VERSION
