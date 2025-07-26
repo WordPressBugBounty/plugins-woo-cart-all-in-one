@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cart All In One For WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-26 02:04+0000\n"
+"POT-Creation-Date: 2025-07-26 08:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -16,18 +16,18 @@ msgstr ""
 "X-Loco-Version: 2.5.0; wp-5.6\n"
 "X-Domain: woo-cart-all-in-one"
 
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:320
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:333
 msgid ""
 "Add product to cart without reloading on single product pages and Quick View "
 "popup."
 msgstr ""
 
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:342
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:355
 msgid "Add the products which are not applied ajax add to cart"
 msgstr ""
 
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:403
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/frontend/frontend.php:186
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:401
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/frontend/frontend.php:189
 #: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/templates/variation-popup.php:83
 msgid "Add To Cart"
 msgstr ""
@@ -36,12 +36,12 @@ msgstr ""
 msgid "Add To Cart Button"
 msgstr ""
 
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:381
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:398
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:379
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:396
 msgid "Add to Cart button label"
 msgstr ""
 
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:362
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:360
 msgid "Add to Cart for variable products"
 msgstr ""
 
@@ -51,13 +51,13 @@ msgid ""
 "clicking"
 msgstr ""
 
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:375
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:373
 msgid ""
 "After click add to cart button, a pop-up will appear allowing select "
 "variations and add to cart without redirect to the single product page."
 msgstr ""
 
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:308
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:321
 msgid "AJAX Add to Cart"
 msgstr ""
 
@@ -205,7 +205,7 @@ msgstr ""
 msgid "Cart total"
 msgstr ""
 
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:391
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:389
 msgid "Change the label of the add to cart button with variable products"
 msgstr ""
 
@@ -288,12 +288,6 @@ msgstr ""
 msgid "Display Sidebar Content"
 msgstr ""
 
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:357
-msgid ""
-"Display the notification of adding products to cart successfully after "
-"adding to cart by Ajax"
-msgstr ""
-
 #: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/design.php:1036
 #: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/design.php:1283
 msgid "Dotted"
@@ -306,8 +300,8 @@ msgstr ""
 #: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:110
 #: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:196
 #: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:231
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:312
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:413
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:325
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:411
 #: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/design.php:427
 #: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/design.php:2113
 msgid "Enable"
@@ -337,7 +331,7 @@ msgstr ""
 msgid "Enable sidebar cart icon"
 msgstr ""
 
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:405
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:403
 msgid "Enter you own label for the add to cart button of variable products"
 msgstr ""
 
@@ -345,7 +339,7 @@ msgstr ""
 msgid "Ex: !is_page(array(123,41,20))"
 msgstr ""
 
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:325
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:338
 msgid "Exclude products"
 msgstr ""
 
@@ -489,10 +483,6 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:348
-msgid "Notification"
-msgstr ""
-
 #: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/design.php:1753
 msgid "Number Of Products To Show"
 msgstr ""
@@ -564,7 +554,7 @@ msgstr ""
 msgid "Product price"
 msgstr ""
 
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/frontend/frontend.php:230
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/frontend/frontend.php:233
 #: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/templates/vicaio-product-quantity-html.php:20
 msgctxt "Product quantity input tooltip"
 msgid "Qty"
@@ -586,7 +576,7 @@ msgstr ""
 msgid "Quantity Border Radius(px)"
 msgstr ""
 
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/frontend/menu-cart.php:57
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/frontend/menu-cart.php:85
 msgid "Quick checkout"
 msgstr ""
 
@@ -630,7 +620,7 @@ msgstr ""
 msgid "RotateInUp"
 msgstr ""
 
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:428
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:426
 msgid "Save"
 msgstr ""
 
@@ -648,7 +638,7 @@ msgstr ""
 msgid "Select Products"
 msgstr ""
 
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:366
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:364
 msgid "Select variation pop-up"
 msgstr ""
 
@@ -779,7 +769,7 @@ msgstr ""
 msgid "Sticky Add To Cart Button"
 msgstr ""
 
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:409
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:407
 msgid "Sticky Add To Cart on single product page"
 msgstr ""
 
@@ -864,8 +854,9 @@ msgstr ""
 #: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:139
 #: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:183
 #: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:200
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:417
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:424
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:317
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:415
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/admin/cart.php:422
 msgid "Unlock This Feature"
 msgstr ""
 
@@ -914,7 +905,7 @@ msgstr ""
 msgid "View Cart Button Text"
 msgstr ""
 
-#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/frontend/menu-cart.php:57
+#: D:/git/free-version/woo-cart-all-in-one/woo-cart-all-in-one/includes/frontend/menu-cart.php:85
 msgid "View your shopping cart"
 msgstr ""
 

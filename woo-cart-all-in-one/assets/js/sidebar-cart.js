@@ -1,8 +1,29 @@
 (function ($) {
     'use strict';
-    // if (typeof viwcaio_sc_params === 'undefined') {
-    //     return false;
-    // }
+    let wp_select, wp_subscribe, wc_block_cart_store_key,block_subscribe;
+    let viwcaio_check_wc_cart_block = false,viwcaio_wc_block_cart_old = [],viwcaio_wc_block_cart_new=[], viwcaio_wc_block_cart = {};
+    let originalFetch = window.fetch;
+    window.fetch = async function(...args) {
+        $('.vi-wcaio-sidebar-cart-wrap').find('.vi-wcaio-sidebar-cart-loading-wrap').removeClass('vi-wcaio-disabled');
+        if (args[0] && typeof args[0] === 'string' && args[0].includes('/wc/store/v1/cart/update-item') && args[1] && args[1]?.body){
+            let item = JSON.parse(args[1].body);
+            if (item?.id && item?.key && !$('.vi-wcaio-sidebar-cart-pd-wrap[data-cart_item_key="'+ item.key +'"]').length){
+                let tmp={"id":item.id,"quantity":1};
+                args[1].body = JSON.stringify(tmp);
+                args[0] = args[0].replace('/wc/store/v1/cart/update-item','/wc/store/v1/cart/add-item');
+            }
+        }
+        let response = await originalFetch.apply(this, args);
+        if (viwcaio_check_wc_cart_block === 'isset' && args[0] && typeof args[0] === 'string' && args[0].includes('/wc/store/v1/cart')) {
+            let  clone = response.clone();
+            clone.json().then(data => {
+                viwcaio_wc_block_cart_new= data?.items;
+                viwcaio_block_sidebar_cart_refresh(data);
+            });
+        }
+        $('.vi-wcaio-sidebar-cart-wrap').find('.vi-wcaio-sidebar-cart-loading-wrap').addClass('vi-wcaio-disabled');
+        return response;
+    };
     $(document).ready(function () {
         setTimeout(function () {
             $(document).trigger('viwcaio_sidebar_cart_init');
@@ -59,10 +80,111 @@
     }
 
     function viwcaio_sidebar_cart_update() {
-        viwcaio_sidebar_cart_refresh(
-            viwcaio_sc_params.wc_ajax_url.toString().replace('%%endpoint%%', 'viwcaio_get_cart_fragments'),
-            {viwcaio_get_cart_fragments: 1, vicaio_nonce: viwcaio_sc_params.nonce}
-        );
+        viwcaio_check_wc_cart_block = typeof wp !== "undefined" && wp?.data?.select && wp?.data?.subscribe  && typeof wc !== "undefined" && wc?.wcBlocksData?.CART_STORE_KEY;
+        if (viwcaio_check_wc_cart_block){
+            if (!block_subscribe){
+                wp_select = wp.data.select;
+                wp_subscribe = wp.data.subscribe;
+                wc_block_cart_store_key = wc.wcBlocksData.CART_STORE_KEY ;
+                block_subscribe = wp_subscribe(  viwcaio_block_sidebar_cart_refresh, wc_block_cart_store_key )
+            }
+        }else if ($(`[data-block-name="woocommerce/product-button"]`).length && $(`[data-wp-on--click="actions.addCartItem"]`).length){
+            viwcaio_check_wc_cart_block='isset';
+        }else {
+            viwcaio_sidebar_cart_refresh(
+                viwcaio_sc_params.wc_ajax_url.toString().replace('%%endpoint%%', 'viwcaio_get_cart_fragments'),
+                {viwcaio_get_cart_fragments: 1, vicaio_nonce: viwcaio_sc_params.nonce}
+            );
+        }
+        $(document).on('viwcaio_after_update_cart', function (e, data, just_refresh_session= false){
+            let fragments = data.fragments ? data.fragments : data;
+            if (fragments && data?.cart_hash && 'sessionStorage' in window && window.sessionStorage !== null && typeof viwcaio_sc_params !=="undefined" ) {
+                let fragment_name = viwcaio_sc_params.fragment_name,
+                    cart_hash_key = viwcaio_sc_params.cart_hash_key;
+                sessionStorage.setItem(fragment_name, JSON.stringify(fragments));
+                localStorage.setItem( cart_hash_key, data.cart_hash );
+                sessionStorage.setItem( cart_hash_key, data.cart_hash  );
+                if ( data.cart_hash ) {
+                    sessionStorage.setItem( 'wc_cart_created', ( new Date() ).getTime() );
+                }
+                if (just_refresh_session){
+                    return false;
+                }
+            }
+            if (!fragments || !Object.keys(fragments).length) {
+                $(document.body).trigger('wc_fragments_ajax_error');
+                return false;
+            }
+            $.each(fragments, function (key, value) {
+                $(key).replaceWith(value);
+            });
+            if ( typeof wc_cart_params !== 'undefined' ){
+                if ($('[name="update_cart"]').length && $('[name="update_cart"]').closest('form').length){
+                    let cart_form = $('[name="update_cart"]').closest('form'),
+                        sidebar_pd = $('.vi-wcaio-sidebar-cart-products'),
+                        update_items = 0;
+                    sidebar_pd.find('.vi_wcaio_qty').each(function (k,v){
+                        let name = $(v).attr('name').replace('viwcaio_','');
+                        if (cart_form.find(`input[name="${name}"]`).val() != $(v).val()) {
+                            update_items++;
+                            cart_form.find(`input[name="${name}"]`).val($(v).val()).trigger('change');
+                        }
+                    });
+                    if (update_items) {
+                        $('[name="update_cart"]').removeAttr('disabled').trigger('click');
+                    }
+                }else {
+                    //location.reload();
+                }
+            } else if ( typeof wc_checkout_params !== 'undefined' && ( typeof viwcaio_atc === "undefined" || !viwcaio_atc.length) ) {
+                $(document.body).trigger("update_checkout");
+            }
+            $('.vi-wcaio-sidebar-cart-wrap').addClass('vi-wcaio-sidebar-cart-wrap-updated');
+            $(document.body).trigger("wc_fragments_refreshed");
+        });
+        $(document).on('viwcaio_fragment_refresh', function (e,url='',data=''){
+            if (typeof viwcaio_sc_params !== "undefined"){
+                if (!url){
+                    url = viwcaio_sc_params.wc_ajax_url.toString().replace('%%endpoint%%', 'viwcaio_get_cart_fragments');
+                }
+                if (!data){
+                    data = {viwcaio_get_cart_fragments: 1, vicaio_nonce: viwcaio_sc_params.nonce};
+                }
+            }
+            if (!url || !data){
+                return false;
+            }
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: data,
+                beforeSend: function () {
+                    $('.vi-wcaio-sidebar-cart-wrap').find('.vi-wcaio-sidebar-cart-loading-wrap').removeClass('vi-wcaio-disabled');
+                },
+                success: function (response) {
+                    $(document).trigger('viwcaio_after_update_cart',[response]);
+                },
+                error: function (e) {
+                    console.log(e)
+                    $('.vi-wcaio-sidebar-cart-wrap').find('.vi-wcaio-sidebar-cart-loading-wrap').addClass('vi-wcaio-disabled');
+                },
+                complete: function() {
+                    $('.vi-wcaio-sidebar-cart-wrap').find('.vi-wcaio-sidebar-cart-loading-wrap').addClass('vi-wcaio-disabled');
+                }
+            });
+        });
+        $(document.body).on('wc_fragments_refreshed wc_fragments_ajax_error', function () {
+            if ($('.vi-wcaio-sidebar-cart-wrap-open-atc').length){
+                $(document.body).trigger('viwcaio_sc_effect_after_atc', [$('.vi-wcaio-sidebar-cart-wrap-open-atc').removeClass('vi-wcaio-sidebar-cart-wrap-open-atc').data('effect_after_atc')]);
+                return true;
+            }
+            $('.vi-wcaio-sidebar-cart-wrap').find('.vi-wcaio-sidebar-cart-loading-wrap').addClass('vi-wcaio-disabled');
+            $('.vi-wcaio-sidebar-cart-wrap').removeClass('vi-wcaio-sidebar-cart-wrap-updated');
+            vi_wcaio_sc_icon_may_be_toggle($('.vi-wcaio-sidebar-cart-wrap'));
+            $('.vi-wcaio-sidebar-cart-footer-pd-wrap-wrap:not(.vi-wcaio-disabled):not(.vi-wcaio-slide-init)').each(function () {
+                vi_wcaio_sc_flexslider($(this));
+            });
+        });
         $(document.body).on('vartable_global_add_finished', function (evt) {
             // Woocommerce Variations Table - Grid - Spyros Vlachopoulos v1.4.14
             if ($('.vi-wcaio-sidebar-cart-content-open').length) {
@@ -85,12 +207,69 @@
                 cart.addClass('vi-wcaio-sidebar-cart-wrap-open-atc');
             }
         });
+        $(document).on('click','[data-wp-on--click="actions.addCartItem"]',function (e){
+            if (!$('[id="wp-script-module-data-@wordpress/interactivity"]').length){
+                return;
+            }
+            viwcaio_wc_block_cart_old = JSON.parse($('[id="wp-script-module-data-@wordpress/interactivity"]').html())?.state?.woocommerce?.cart?.items;
+            $(this).addClass('vicaio-wc-blocks_adding_to_cart');
+        });
+        $(document).on('vicaio-wc-blocks_added_to_cart', function () {
+            if (!$('.vicaio-wc-blocks_adding_to_cart').length || !viwcaio_wc_block_cart_new.length || !viwcaio_wc_block_cart_old.length){
+                return;
+            }
+            let product_id;
+            for (let item of viwcaio_wc_block_cart_new) {
+                if (!item?.key || !item?.id || !item?.quantity){
+                    continue;
+                }
+                let has_item = false;
+                for (let old_item of viwcaio_wc_block_cart_old) {
+                    if (!old_item?.key || !old_item?.id || !old_item?.quantity){
+                        break;
+                    }
+                    if (old_item.key === item.key && old_item.id === item.id ){
+                        has_item = true;
+                        if ( item.quantity > old_item.quantity) {
+                            product_id = item.id;
+                        }
+                        break;
+                    }
+                }
+                if (!has_item){
+                    product_id = item.id;
+                }
+                if (product_id){
+                    break;
+                }
+            }
+            if (!product_id){
+                return;
+            }
+            let $btn = $(`[data-product_id="${product_id}"] .vicaio-wc-blocks_adding_to_cart`);
+            if (!$btn.length){
+                $btn = $(`[data-product_id="${product_id}"].vicaio-wc-blocks_adding_to_cart`)
+            }
+            if (!$btn.length){
+                return;
+            }
+            $btn.removeClass('vicaio-wc-blocks_adding_to_cart');
+            $(document).trigger('viwcaio_added_to_cart',[$btn]);
+            viwcaio_wc_block_cart_old = viwcaio_wc_block_cart_new;
+        });
         $(document.body).on('added_to_cart', function (evt, fragments, cart_hash, btn) {
-            if (btn.hasClass('vi-wcaio-pd_plus-product-bt-atc') || $('.vi-wcaio-sidebar-cart-content-open').length) {
+            $(document).trigger('viwcaio_added_to_cart',[btn,{
+                fragments: fragments,
+                cart_hash: cart_hash
+            }]);
+        });
+        $(document).on('viwcaio_added_to_cart',function (e, btn,update_cart ){
+            if (btn.hasClass('vi-wcaio-pd_plus-product-bt-atc') || btn.closest('.viwcuf-checkout-funnel-container-popup-init').length
+                || $('.vi-wcaio-sidebar-cart-content-open').length) {
                 return false;
             }
-            if (!btn.hasClass('vi-wcaio-product-bt-atc-loading') && typeof wc_cart_fragments_params === "undefined"){
-                $(document).trigger('viwcaio_after_update_cart',[{fragments:fragments,cart_hash:cart_hash}, true]);
+            if (update_cart && !btn.hasClass('vi-wcaio-product-bt-atc-loading') && typeof wc_cart_fragments_params === "undefined") {
+                $(document).trigger('viwcaio_after_update_cart', [update_cart, true]);
             }
             let cart = $('.vi-wcaio-sidebar-cart-wrap');
             let effect_after_atc = cart.data('effect_after_atc'),
@@ -105,6 +284,12 @@
             if (!effect_after_atc && !fly_to_cart) {
                 return false;
             }
+            if ($('.vi-wcaio-sb-container-popup-show').length) {
+                if (effect_after_atc === 'open') {
+                    $(document.body).trigger('viwcaio_sc_effect_after_atc', [effect_after_atc]);
+                }
+                return false;
+            }
             if (fly_to_cart) {
                 let img_product = viwcaio_get_img_product(btn), sc_icon = $('.vi-wcaio-sidebar-cart-icon-wrap');
                 if ($(img_product).length && sc_icon.length) {
@@ -112,25 +297,32 @@
                     let img_product_wrap, img_product_t, img_top, img_left, img_width, img_height,
                         sc_icon_top = sc_icon.offset().top || cart.offset().top,
                         sc_icon_left = sc_icon.offset().left || cart.offset().left;
-                    if (img_product.closest('.woocommerce-product-gallery__wrapper').length) {
-                        img_product_wrap = img_product.closest('.woocommerce-product-gallery__wrapper');
-                    } else if (img_product.closest('.woocommerce-product-gallery__image').length) {
-                        img_product_wrap = img_product.closest('.woocommerce-product-gallery__image');
-                    }
-                    if (img_product_wrap && img_product_wrap.length) {
-                        if (img_product_wrap.find('.flex-active-slide').length) {
-                            img_product_t = img_product_wrap.find('.flex-active-slide');
-                        } else if (img_product_wrap.find('.slick-active').length) {
-                            img_product_t = img_product_wrap.find('.slick-active');
-                        } else if (img_product_wrap.find('.active').length) {
-                            img_product_t = img_product_wrap.find('.active');
+                    if (img_product.closest('.elementor-widget-wrap').length && !img_product.closest('.product').length &&
+                        !img_product.closest('.elementor-widget-wrap').find('.product').length) {
+                        img_product_t = img_product.closest('.elementor-widget-wrap');
+                    } else {
+                        if (img_product.closest('.woocommerce-product-gallery__wrapper').length) {
+                            img_product_wrap = img_product.closest('.woocommerce-product-gallery__wrapper');
+                        } else if (img_product.closest('.woocommerce-product-gallery__image').length) {
+                            img_product_wrap = img_product.closest('.woocommerce-product-gallery__image');
                         }
-                    }
-                    if (!img_product_t || !$(img_product_t).length) {
-                        img_product_t = img_product;
-                    }
-                    if (img_product_t.find('img').length) {
-                        img_product_t = img_product_t.find('img').first();
+                        if (img_product_wrap && img_product_wrap.length) {
+                            if (img_product_wrap.find('.flex-active-slide').length) {
+                                img_product_t = img_product_wrap.find('.flex-active-slide');
+                            } else if (img_product_wrap.find('.slick-active').length) {
+                                img_product_t = img_product_wrap.find('.slick-active');
+                            } else if (img_product_wrap.find('.active').length) {
+                                img_product_t = img_product_wrap.find('.active');
+                            } else if (img_product_wrap.find('.swiper-slide-active').length) {
+                                img_product_t = img_product_wrap.find('.swiper-slide-active');
+                            }
+                        }
+                        if (!img_product_t || !$(img_product_t).length) {
+                            img_product_t = img_product;
+                        }
+                        if (img_product_t.find('img').length) {
+                            img_product_t = img_product_t.find('img').first();
+                        }
                     }
                     img_top = img_product_t.offset().top;
                     img_left = img_product_t.offset().left;
@@ -161,14 +353,14 @@
                             $('div.vi-wcaio-img-flying').fadeIn('fast', function () {
                                 $('div.vi-wcaio-img-flying').remove();
                             });
-                            $(document.body).trigger('viwcaio_sc_effect_after_atc', [cart, effect_after_atc]);
+                            $(document.body).trigger('viwcaio_sc_effect_after_atc', [effect_after_atc]);
                         });
                     });
                 } else {
-                    $(document.body).trigger('viwcaio_sc_effect_after_atc', [cart, effect_after_atc]);
+                    $(document.body).trigger('viwcaio_sc_effect_after_atc', [effect_after_atc]);
                 }
             } else {
-                $(document.body).trigger('viwcaio_sc_effect_after_atc', [cart, effect_after_atc]);
+                $(document.body).trigger('viwcaio_sc_effect_after_atc', [effect_after_atc]);
             }
         });
         $(document.body).on('viwcaio_sc_effect_after_atc', function (event, cart, effect_after_atc) {
@@ -349,97 +541,16 @@
         }
         return refresh;
     }
+    function viwcaio_block_sidebar_cart_refresh(cart=null) {
+        if (!cart) {
+            cart = wp_select(wc_block_cart_store_key).getCartData();
+        }
+        viwcaio_wc_block_cart_new = cart?.items;
+        $(document).trigger('vicaio-wc-blocks_added_to_cart');
+        $(document).trigger('viwcaio_after_update_cart', [cart?.extensions?.vicaio_update]);
+    }
 
     function viwcaio_sidebar_cart_refresh(url, data) {
-        $(document).on('viwcaio_after_update_cart', function (e, data, just_refresh_session= false){
-            let fragments = data.fragments ? data.fragments : data;
-            if (fragments && 'sessionStorage' in window && window.sessionStorage !== null && typeof viwcaio_sc_params !=="undefined" ) {
-                let fragment_name = viwcaio_sc_params.fragment_name,
-                    cart_hash_key = viwcaio_sc_params.cart_hash_key;
-                sessionStorage.setItem(fragment_name, JSON.stringify(fragments));
-                localStorage.setItem( cart_hash_key, data.cart_hash );
-                sessionStorage.setItem( cart_hash_key, data.cart_hash  );
-                if ( data.cart_hash ) {
-                    sessionStorage.setItem( 'wc_cart_created', ( new Date() ).getTime() );
-                }
-                if (just_refresh_session){
-                    return false;
-                }
-            }
-            if (!fragments || !Object.keys(fragments).length) {
-                $(document.body).trigger('wc_fragments_ajax_error');
-                return false;
-            }
-            $.each(fragments, function (key, value) {
-                $(key).replaceWith(value);
-            });
-            if ( typeof wc_cart_params !== 'undefined' ){
-                if ($('[name="update_cart"]').length && $('[name="update_cart"]').closest('form').length){
-                    let cart_form = $('[name="update_cart"]').closest('form'),
-                        sidebar_pd = $('.vi-wcaio-sidebar-cart-products'),
-                        update_items = 0;
-                    sidebar_pd.find('.vi_wcaio_qty').each(function (k,v){
-                        let name = $(v).attr('name').replace('viwcaio_','');
-                        if (cart_form.find(`input[name="${name}"]`).val() != $(v).val()) {
-                            update_items++;
-                            cart_form.find(`input[name="${name}"]`).val($(v).val()).trigger('change');
-                        }
-                    });
-                    if (update_items) {
-                        $('[name="update_cart"]').removeAttr('disabled').trigger('click');
-                    }
-                }else {
-                    //location.reload();
-                }
-            } else if ( typeof wc_checkout_params !== 'undefined' && ( typeof viwcaio_atc === "undefined" || !viwcaio_atc.length) ) {
-                $(document.body).trigger("update_checkout");
-            }
-            $('.vi-wcaio-sidebar-cart-wrap').addClass('vi-wcaio-sidebar-cart-wrap-updated');
-            $(document.body).trigger("wc_fragments_refreshed");
-        });
-        $(document).on('viwcaio_fragment_refresh', function (e,url='',data=''){
-            if (typeof viwcaio_sc_params !== "undefined"){
-                if (!url){
-                    url = viwcaio_sc_params.wc_ajax_url.toString().replace('%%endpoint%%', 'viwcaio_get_cart_fragments');
-                }
-                if (!data){
-                    data = {viwcaio_get_cart_fragments: 1, vicaio_nonce: viwcaio_sc_params.nonce};
-                }
-            }
-            if (!url || !data){
-                return false;
-            }
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: data,
-                beforeSend: function () {
-                    $('.vi-wcaio-sidebar-cart-wrap').find('.vi-wcaio-sidebar-cart-loading-wrap').removeClass('vi-wcaio-disabled');
-                },
-                success: function (response) {
-                    $(document).trigger('viwcaio_after_update_cart',[response]);
-                },
-                error: function (e) {
-                    console.log(e)
-                    $('.vi-wcaio-sidebar-cart-wrap').find('.vi-wcaio-sidebar-cart-loading-wrap').addClass('vi-wcaio-disabled');
-                },
-                complete: function() {
-                    $('.vi-wcaio-sidebar-cart-wrap').find('.vi-wcaio-sidebar-cart-loading-wrap').addClass('vi-wcaio-disabled');
-                }
-            });
-        });
-        $(document.body).on('wc_fragments_refreshed wc_fragments_ajax_error', function () {
-            if ($('.vi-wcaio-sidebar-cart-wrap-open-atc').length){
-                $(document.body).trigger('viwcaio_sc_effect_after_atc', [$('.vi-wcaio-sidebar-cart-wrap-open-atc').removeClass('vi-wcaio-sidebar-cart-wrap-open-atc').data('effect_after_atc')]);
-                return true;
-            }
-            $('.vi-wcaio-sidebar-cart-wrap').find('.vi-wcaio-sidebar-cart-loading-wrap').addClass('vi-wcaio-disabled');
-            $('.vi-wcaio-sidebar-cart-wrap').removeClass('vi-wcaio-sidebar-cart-wrap-updated');
-            vi_wcaio_sc_icon_may_be_toggle($('.vi-wcaio-sidebar-cart-wrap'));
-            $('.vi-wcaio-sidebar-cart-footer-pd-wrap-wrap:not(.vi-wcaio-disabled):not(.vi-wcaio-slide-init)').each(function () {
-                vi_wcaio_sc_flexslider($(this));
-            });
-        });
         // Refresh when load page
         if ($('.vi-wcaio-sidebar-cart-wrap.vi-wcaio-sidebar-cart-wrap-init').length ) {
             if ($('.vi-wcaio-sidebar-cart-wrap:not(.vi-wcaio-sidebar-cart-wrap-fragments-load)').length) {

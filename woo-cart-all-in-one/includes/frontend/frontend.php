@@ -21,6 +21,8 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Frontend {
 		add_action( 'wp_ajax_vi_wcaio_change_sc_pd_price_style', array( $this, 'viwcaio_change_sc_pd_price_style' ) );
 		add_action( 'wp_ajax_vi_wcaio_get_sc_footer_pd_plus_html', array( $this, 'viwcaio_get_sc_footer_pd_plus_html' ) );
 		add_action( 'wp_ajax_viwcaio_get_cart_fragments', array( __CLASS__, 'viwcaio_get_cart_fragments' ) );
+		//wc block
+		add_filter( 'woocommerce_after_calculate_totals', array( $this, 'block_update_cart' ) );
 		self::add_ajax_events();
 		add_filter('viwcaio_quantity_input_args',array(__CLASS__,'viwcaio_quantity_input_args'), 10, 2);
 		add_action( 'vi_wcaio_get_sidebar_cart_content', array( $this, 'get_sidebar_cart_content' ) );
@@ -64,14 +66,15 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Frontend {
 		if (!did_action('woocommerce_add_to_cart')){
 			WC_Form_Handler::add_to_cart_action();
 		}
-		$notices = WC()->session->get( 'wc_notices', array() );
-		if ( ! empty( $notices['error'] ) ) {
-			wp_send_json( array( 'error' => true ) );
+		if ( ! empty( wc_get_notices( 'error' ) ) ) {
+			wp_send_json( array( 'error' => true, 'message' => wc_print_notices( true ) ) );
+		} elseif ( ! empty( $_POST['add-to-cart'] ) ) {
+			do_action( 'woocommerce_ajax_added_to_cart', apply_filters( 'woocommerce_add_to_cart_product_id', absint( sanitize_text_field( wp_unslash( $_POST['add-to-cart'] ) ) ) ) );
 		}
-		$settings = new VI_WOO_CART_ALL_IN_ONE_DATA();
-		if ( ! empty( $notices ) && ! $settings->get_params( 'ajax_atc_notice' ) ) {
-			unset( $notices['success'] );
-			WC()->session->set( 'wc_notices', $notices );
+		if ( function_exists( 'facebook_for_woocommerce' ) ) {
+			add_filter( 'woocommerce_add_to_cart_fragments', function ( $fragments ) {
+				return facebook_for_woocommerce()->get_integration()->events_tracker->add_add_to_cart_event_fragment( $fragments );
+			}, 10, 1 );
 		}
 		WC_AJAX::get_refreshed_fragments();
 		die();
@@ -302,6 +305,33 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Frontend {
 		}
 		die();
 	}
+	public function block_update_cart() {
+		if (!function_exists('woocommerce_store_api_register_endpoint_data') || !class_exists('\Automattic\WooCommerce\StoreApi\Schemas\V1\CartSchema')){
+			return;
+		}
+		woocommerce_store_api_register_endpoint_data(
+			array(
+				'endpoint'        => \Automattic\WooCommerce\StoreApi\Schemas\V1\CartSchema::IDENTIFIER,
+				'namespace'       => 'vicaio_update',
+				'data_callback'   => function(){
+					return self::viwcaio_woocommerce_add_to_cart_fragments([]);
+				},
+				'schema_callback' => function() {
+					return array(
+						'properties' => [
+							'viwcaio_message'=>['type' => 'string'],
+							'.vi-wcaio-menu-cart-text-wrap'=>['type' => 'string'],
+							'.vi-wcaio-sidebar-cart-count'=>['type' => 'string'],
+							'.vi-wcaio-sidebar-cart-footer-coupons'=>['type' => 'string'],
+							'.vi-wcaio-sidebar-cart-products'=>['type' => 'string'],
+							'.vi-wcaio-sidebar-cart-footer-cart_total1'=>['type' => 'string'],
+						]
+					);
+				},
+				'schema_type'     => ARRAY_A,
+			)
+		);
+	}
 
 	public static function viwcaio_get_cart_fragments(){
         check_ajax_referer('vicaio_nonce','vicaio_nonce');
@@ -314,6 +344,12 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Frontend {
     }
 
 	public static function viwcaio_woocommerce_add_to_cart_fragments( $fragments ) {
+		if ( isset( $_POST['vicaio_nonce'] ) && ! empty( WC()->session->get( 'wc_notices', array() ) ) ) {
+			$fragments['viwcaio_message'] = wc_print_notices( true );
+		}
+		if ( apply_filters( 'viwcaio_wc_calculate_total', function_exists( 'pewc_wc_calculate_total' ) ) ) {
+			WC()->cart->calculate_totals();
+		}
 		$wc_cart              = WC()->cart;
 		$cart_total           = $wc_cart->get_total();
 		$cart_subtotal        = $wc_cart->get_cart_subtotal();

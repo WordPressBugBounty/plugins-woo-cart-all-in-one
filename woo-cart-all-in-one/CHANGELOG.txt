@@ -1,3 +1,8 @@
+/**1.1.19 - 2025.07.26**/
+- Updated: Compatibility with navigation block
+- Updated: Compatibility with WC cart block
+- Updated: Display the notification of adding products to the cart successfully after adding to the cart by Ajax without reloading
+
 /**1.1.18 - 2025.02.28**/
 - Updated: Update support file
 

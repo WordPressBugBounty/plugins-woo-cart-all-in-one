@@ -827,7 +827,7 @@
 .vi-wcaio-sidebar-cart-products .vi-wcaio-sidebar-cart-pd-img-wrap img {
     width: 90px;
     height: auto;
-    max-height: 90px;
+    /*max-height: 90px;*/
     max-width: 100%;
 }
 

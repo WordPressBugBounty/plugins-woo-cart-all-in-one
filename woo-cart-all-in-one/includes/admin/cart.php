@@ -300,11 +300,24 @@ class VI_WOO_CART_ALL_IN_ONE_Admin_Cart {
 						<?php
 						$ajax_atc                       = $this->settings->get_params( 'ajax_atc' );
 						$ajax_atc_pd_exclude            = $this->settings->get_params( 'ajax_atc_pd_exclude' );
-						$ajax_atc_notice            = $this->settings->get_params( 'ajax_atc_notice' );
 						$ajax_atc_pd_variable           = $this->settings->get_params( 'ajax_atc_pd_variable' );
 						$pd_variable_bt_atc_text_enable = $this->settings->get_params( 'pd_variable_bt_atc_text_enable' );
 						$pd_variable_bt_atc_text        = $this->settings->get_params( 'pd_variable_bt_atc_text' );
 						?>
+                        <h4><?php esc_html_e( 'Button Effect when hover', 'woocommerce-cart-all-in-one' ); ?></h4>
+                        <table class="form-table">
+                            <tr>
+                                <th>
+                                    <label for="viwcaio-effect_hover_bt_atc">
+					                    <?php esc_html_e('Type','woocommerce-cart-all-in-one'); ?>
+                                    </label>
+                                </th>
+                                <td>
+                                    <a class="vi-ui button" href="https://1.envato.market/bW20B"
+                                       target="_blank"><?php esc_html_e( 'Unlock This Feature', 'woo-cart-all-in-one' ); ?> </a>
+                                </td>
+                            </tr>
+                        </table>
                         <h4><?php esc_html_e( 'AJAX Add to Cart', 'woo-cart-all-in-one' ); ?></h4>
                         <table class="form-table">
                             <tr>
@@ -340,21 +353,6 @@ class VI_WOO_CART_ALL_IN_ONE_Admin_Cart {
                                     </select>
                                     <p class="description">
 										<?php esc_html_e( 'Add the products which are not applied ajax add to cart', 'woo-cart-all-in-one' ); ?>
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <label for="vi-wcaio-ajax_atc_notice-checkbox"><?php esc_html_e( 'Notification', 'woo-cart-all-in-one' ); ?></label>
-                                </th>
-                                <td>
-                                    <div class="vi-ui checkbox toggle">
-                                        <input type="hidden" name="ajax_atc_notice" id="vi-wcaio-ajax_atc_notice" value="<?php echo esc_attr( $ajax_atc_notice ); ?>">
-                                        <input type="checkbox" id="vi-wcaio-ajax_atc_notice-checkbox" class="vi-wcaio-ajax_atc_notice-checkbox"
-					                        <?php checked( $ajax_atc_notice, 1 ); ?>><label></label>
-                                    </div>
-                                    <p class="description">
-				                        <?php esc_html_e( 'Display the notification of adding products to cart successfully after adding to cart by Ajax', 'woo-cart-all-in-one' ); ?>
                                     </p>
                                 </td>
                             </tr>

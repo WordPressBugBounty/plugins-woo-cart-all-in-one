@@ -1,5 +1,6 @@
 (function ($) {
     'use strict';
+    let  ajax_call={};
     $(document).ready(function () {
         $(document.body).on('click', '.vi-wcaio-sidebar-cart-pd-wrap .vi_wcaio_change_qty', function (e) {
             e.preventDefault();
@@ -274,7 +275,10 @@
     });
     wp.customize('woo_cart_all_in_one_params[sc_icon_default_icon]', function (value) {
         value.bind(function (newval) {
-            $.ajax({
+            if ( ajax_call?.sc_icon_default_icon ) {
+                ajax_call.sc_icon_default_icon.abort();
+            }
+            ajax_call.sc_icon_default_icon = $.ajax({
                 type: 'POST',
                 url: vi_wcaio_preview.ajax_url,
                 data: {
@@ -347,7 +351,10 @@
             };
             $('.vi-wcaio-sidebar-cart-footer-pd-wrap-wrap').html('');
             if (newval) {
-                $.ajax({
+                if ( ajax_call?.sc_footer_pd_plus ) {
+                    ajax_call.sc_footer_pd_plus.abort();
+                }
+                ajax_call.sc_footer_pd_plus = $.ajax({
                     type: 'POST',
                     dataType: "json",
                     url: vi_wcaio_preview.ajax_url,
@@ -392,7 +399,10 @@
     wp.customize('woo_cart_all_in_one_params[sc_pd_price_style]', function (value) {
         value.bind(function (newval) {
             if (!$('.vi-wcaio-sidebar-cart-pd-empty').length) {
-                $.ajax({
+                if ( ajax_call?.sc_pd_price_style ) {
+                    ajax_call.sc_pd_price_style.abort();
+                }
+                ajax_call.sc_pd_price_style = $.ajax({
                     type: 'POST',
                     url: vi_wcaio_preview.ajax_url,
                     data: {
@@ -420,7 +430,10 @@
     });
     wp.customize('woo_cart_all_in_one_params[sc_pd_delete_icon]', function (value) {
         value.bind(function (newval) {
-            $.ajax({
+            if ( ajax_call?.sc_pd_delete_icon ) {
+                ajax_call.sc_pd_delete_icon.abort();
+            }
+            ajax_call.sc_pd_delete_icon = $.ajax({
                 type: 'POST',
                 url: vi_wcaio_preview.ajax_url,
                 data: {
@@ -460,7 +473,10 @@
     });
     wp.customize('woo_cart_all_in_one_params[mc_icon]', function (value) {
         value.bind(function (newval) {
-            $.ajax({
+            if ( ajax_call?.mc_icon ) {
+                ajax_call.mc_icon.abort();
+            }
+            ajax_call.mc_icon = $.ajax({
                 type: 'POST',
                 url: vi_wcaio_preview.ajax_url,
                 data: {
@@ -482,7 +498,10 @@
     });
     wp.customize('woo_cart_all_in_one_params[mc_display_style]', function (value) {
         value.bind(function (newval) {
-            $.ajax({
+            if ( ajax_call?.mc_display_style ) {
+                ajax_call.mc_display_style.abort();
+            }
+            ajax_call.mc_display_style = $.ajax({
                 type: 'POST',
                 url: vi_wcaio_preview.ajax_url,
                 data: {
@@ -504,7 +523,10 @@
     });
     wp.customize('woo_cart_all_in_one_params[mc_cart_total]', function (value) {
         value.bind(function (newval) {
-            $.ajax({
+            if ( ajax_call?.mc_cart_total ) {
+                ajax_call.mc_cart_total.abort();
+            }
+            ajax_call.mc_cart_total = $.ajax({
                 type: 'POST',
                 url: vi_wcaio_preview.ajax_url,
                 data: {

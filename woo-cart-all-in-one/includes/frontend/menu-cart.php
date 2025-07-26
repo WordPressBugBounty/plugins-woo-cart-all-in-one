@@ -11,6 +11,34 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Menu_Cart {
 		add_action( 'wp_enqueue_scripts', array( $this, 'viwcaio_wp_enqueue_scripts' ), 99 );
 		add_filter( 'wp_page_menu', array( $this, 'create_primary_menu_cart_item' ), PHP_INT_MAX, 2 );
 		add_filter( 'wp_nav_menu_items', array( $this, 'create_menu_cart' ), PHP_INT_MAX, 2 );
+		add_filter( 'block_core_navigation_render_inner_blocks', array( $this, 'create_block_menu_cart' ), PHP_INT_MAX, 1 );
+	}
+	public function create_block_menu_cart($inner_blocks ) {
+		if ( ! is_customize_preview() && ! $this->settings->enable( 'mc_' ) ) {
+			return $inner_blocks;
+		}
+		if (empty($inner_blocks)){
+			return $inner_blocks;
+		}
+		$has_mc= false;
+		foreach ( $inner_blocks as $inner_block_key => $inner_block ) {
+			if (!empty($inner_block->parsed_block['attrs']['viwcaio_mc'] )){
+				$has_mc = true;
+				break;
+			}
+		}
+		if (!$has_mc){
+			$tmp=[
+				'attrs'=>[
+					'viwcaio_mc'=> 1,
+				],
+				'blockName'=> 'core/html',
+				'innerContent'=> [0=> $this->get_menu_cart_html(true)],
+			];
+			$inner_block_key +=1;
+			$inner_blocks[$inner_block_key] = New WP_Block($tmp,[]);
+		}
+		return $inner_blocks;
 	}
 
 	public function create_primary_menu_cart_item( $menu, $args ) {
