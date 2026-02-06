@@ -7,38 +7,37 @@
  * Author URI:https://villatheme.com
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Version: 1.1.19
+ * Version: 1.1.21
  * Text Domain: woo-cart-all-in-one
  * Domain Path: /languages
- * Copyright 2019-2025 VillaTheme.com. All rights reserved.
+ * Copyright 2019-2026 VillaTheme.com. All rights reserved.
  * Requires Plugins: woocommerce
  * Requires PHP: 7.0
  * Requires at least: 5.0
- * Tested up to: 6.8
+ * Tested up to: 6.9
  * WC requires at least: 7.0
- * WC tested up to: 10.0
+ * WC tested up to: 10.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
-define( 'VI_WOO_CART_ALL_IN_ONE_VERSION', '1.1.19' );
-include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+define( 'VI_WOO_CART_ALL_IN_ONE_VERSION', '1.1.21' );
+define( 'VI_WOO_CART_ALL_IN_ONE_DIR', plugin_dir_path( __FILE__ ) );
+define( 'VI_WOO_CART_ALL_IN_ONE_INC', VI_WOO_CART_ALL_IN_ONE_DIR . "includes" . DIRECTORY_SEPARATOR );
 
 
 class WOO_CART_ALL_IN_ONE {
 	public function __construct() {
 		//compatible with 'High-Performance order storage (COT)'
 		add_action( 'before_woocommerce_init', array( $this, 'before_woocommerce_init' ) );
-		if ( is_plugin_active( 'woocommerce-cart-all-in-one/woocommerce-cart-all-in-one.php' ) ) {
-			return;
-		}
 		add_action( 'plugins_loaded', array( $this, 'init' ) );
-		define( 'VI_WOO_CART_ALL_IN_ONE_DIR', plugin_dir_path( __FILE__ ) );
-		define( 'VI_WOO_CART_ALL_IN_ONE_INC', VI_WOO_CART_ALL_IN_ONE_DIR . "includes" . DIRECTORY_SEPARATOR );
 	}
 
 	public function init() {
+		if ( class_exists( 'VIWCAIO_CART_ALL_IN_ONE' ) ) {
+			return;
+		}
 		$include_dir = plugin_dir_path( __FILE__ ) . 'includes/';
 		if ( ! class_exists( 'VillaTheme_Require_Environment' ) ) {
 			include_once $include_dir . 'support.php';

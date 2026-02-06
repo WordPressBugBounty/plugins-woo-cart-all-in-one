@@ -1,3 +1,9 @@
+/**1.1.21 - 2026.01.23**/
+- Updated: VillaTheme support
+
+/**1.1.20 - 2025.10.06**/
+– Updated: Update support class
+
 /**1.1.19 - 2025.07.26**/
 - Updated: Compatibility with navigation block
 - Updated: Compatibility with WC cart block
