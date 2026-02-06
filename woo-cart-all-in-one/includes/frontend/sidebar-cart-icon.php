@@ -7,7 +7,7 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Sidebar_Cart_Icon {
 	protected $is_customize, $customize_data;
 	public function __construct() {
 		$this->settings    = new VI_WOO_CART_ALL_IN_ONE_DATA();
-		add_action( 'wp_enqueue_scripts', array( $this, 'viwcaio_wp_enqueue_scripts' ) ,9);
+        add_action( 'viwcaio_sidebar_enqueue_scripts', array( $this, 'viwcaio_wp_enqueue_scripts' ) );
 		add_action( 'vi_wcaio_get_sidebar_cart_icon', array( $this, 'get_sidebar_cart_icon' ) );
 	}
 	public function viwcaio_wp_enqueue_scripts() {
@@ -15,12 +15,8 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Sidebar_Cart_Icon {
 		    return;
         }
 		$this->is_customize = is_customize_preview();
-		if ( ! $this->is_customize && ! $this->assign_page() ) {
-			return;
-		} else {
-			global $wp_customize;
-			$this->customize_data = $wp_customize;
-		}
+        global $wp_customize;
+        $this->customize_data = $wp_customize;
 		wp_enqueue_style( 'vi-wcaio-cart-icons', VI_WOO_CART_ALL_IN_ONE_CSS . 'cart-icons.min.css', array(), VI_WOO_CART_ALL_IN_ONE_VERSION );
 		$suffix = WP_DEBUG ? '' : 'min.';
 		wp_enqueue_style( 'vi-wcaio-sidebar-cart-icon', VI_WOO_CART_ALL_IN_ONE_CSS . 'sidebar-cart-icon.' . $suffix . 'css', array(), VI_WOO_CART_ALL_IN_ONE_VERSION );
@@ -231,34 +227,6 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Sidebar_Cart_Icon {
 		);
 		$css = str_replace( array( "\r", "\n", "\t" ,'\r', '\n' , '\t'), ' ', $css );
 		return $css;
-	}
-	public function assign_page() {
-		if ( ! $this->settings->enable( 'sc_' )  ) {
-			return false;
-		}
-		$assign_page = $this->settings->get_params( 'sc_assign_page' );
-		if ( $assign_page ) {
-			if ( stristr( $assign_page, "return" ) === false ) {
-				$assign_page = "return (" . $assign_page . ");";
-			}
-			try {
-				$logic_show = eval( $assign_page);// phpcs:ignore Generic.PHP.ForbiddenFunctions.Found
-			}
-			catch ( \Error $e ) {
-				trigger_error( wp_kses_post( $e->getMessage() ), E_USER_WARNING );
-
-				$logic_show = false;
-			}catch ( \Exception $e ) {
-				trigger_error( wp_kses_post( $e->getMessage() ), E_USER_WARNING );
-
-				$logic_show = false;
-			}
-			if ( !$logic_show ) {
-				return false;
-			}
-		}
-
-		return true;
 	}
 
 	private function get_params( $name = '') {

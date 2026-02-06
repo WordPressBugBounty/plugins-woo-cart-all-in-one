@@ -45,6 +45,7 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Sidebar_Cart_Content {
 			$css = $this->get_inline_css();
 			wp_add_inline_style( 'vi-wcaio-sidebar-cart-content', $css );
 		}
+        do_action('viwcaio_sidebar_enqueue_scripts',false,$this->is_customize);
 		add_action( 'wp_footer', array( $this, 'frontend_html' ) );
 	}
 	public function frontend_html(){
@@ -327,28 +328,88 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Sidebar_Cart_Content {
 	    if (!self::$settings->enable('sc_')) {
 		    return self::$cache['assign_page'] = false;
 	    }
-	    $assign_page = self::$settings->get_params( 'sc_assign_page' );
-	    if ( $assign_page ) {
-		    if ( stristr( $assign_page, "return" ) === false ) {
-			    $assign_page = "return (" . $assign_page . ");";
-		    }
-		    try {
-			    $logic_show = eval( $assign_page);// phpcs:ignore Generic.PHP.ForbiddenFunctions.Found
-		    }
-		    catch ( \Error $e ) {
-			    trigger_error( wp_kses_post( $e->getMessage() ), E_USER_WARNING );
+        $logic_value = self::$settings->get_params( 'sc_assign_page' );
 
-			    $logic_show = false;
-		    }catch ( \Exception $e ) {
-			    trigger_error( wp_kses_post( $e->getMessage() ), E_USER_WARNING );
-
-			    $logic_show = false;
-		    }
-		    if ( !$logic_show ) {
-			    return self::$cache['assign_page'] = false;
-		    }
-	    }
-	    return self::$cache['assign_page'] = true;
+        if ($logic_value){
+            preg_match('/\)[^a-zA-Z]+\(|\)\(|[^a-zA-Z0-9()_\'"\s!|&,\[\]]/',$logic_value,$exclude);
+            if (!empty($exclude)){
+                $logic_value = '';
+            }
+        }
+        if ( $logic_value ) {
+            $logic_check = false;
+            preg_match_all('/\b([a-zA-Z_][a-zA-Z0-9_]*)\s*\(/', $logic_value, $logics);
+            $allow_func  = [
+                    'is_home',
+                    'is_front_page',
+                    'is_single',
+                    'is_page',
+                    'is_attachment',
+                    'is_singular',
+                    'is_archive',
+                    'is_category',
+                    'is_tag',
+                    'is_author',
+                    'is_date',
+                    'is_year',
+                    'is_month',
+                    'is_day',
+                    'is_search',
+                    'is_404',
+                    'is_post_type_archive',
+                    'is_admin',
+                    'is_user_logged_in',
+                    'is_active_sidebar',
+                    'is_woocommerce',
+                    'is_shop',
+                    'is_product',
+                    'is_product_category',
+                    'is_product_tag',
+                    'is_product_taxonomy',
+                    'is_account_page',
+                    'is_cart',
+                    'is_checkout',
+                    'is_order_received_page',
+            ];
+            if ( ! empty( $logics[1] ) ) {
+                $logic_check = true;
+                foreach ( $logics[1] as $logic ) {
+                    if ($logic ==='array'){
+                        continue;
+                    }
+                    if ( strpos( $logic, 'is_' ) !== 0 ) {
+                        $logic_check = false;
+                        break;
+                    }
+                    $allow = false;
+                    foreach ($allow_func as $func) {
+                        if ( strpos( $logic, $func ) === 0 ) {
+                            $allow = true;
+                            break;
+                        }
+                    }
+                    if (!$allow){
+                        $logic_check = false;
+                        break;
+                    }
+                }
+            }
+            if ( $logic_check && stristr( $logic_value, "return" ) === false ) {
+                $logic_value = "return (" . $logic_value . ");";
+            } else {
+                $logic_value = '';
+            }
+        }
+        if ( $logic_value ) {
+            try {
+                $logic_show = eval( $logic_value );//phpcs:ignore Generic.PHP.ForbiddenFunctions.Found
+            } catch ( \Error $e ) {
+                $logic_show = false;
+            } catch ( \Exception $e ) {
+                $logic_show = false;
+            }
+        }
+        return self::$cache['assign_page'] = $logic_show ?? true;
     }
 	public function get_params( $name = '') {
 		if (!$this->customize_data){

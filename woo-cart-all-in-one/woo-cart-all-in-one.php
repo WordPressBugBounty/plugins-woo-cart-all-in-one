@@ -7,7 +7,7 @@
  * Author URI:https://villatheme.com
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Version: 1.1.21
+ * Version: 1.1.22
  * Text Domain: woo-cart-all-in-one
  * Domain Path: /languages
  * Copyright 2019-2026 VillaTheme.com. All rights reserved.
@@ -22,7 +22,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
-define( 'VI_WOO_CART_ALL_IN_ONE_VERSION', '1.1.21' );
+define( 'VI_WOO_CART_ALL_IN_ONE_VERSION', '1.1.22' );
 define( 'VI_WOO_CART_ALL_IN_ONE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'VI_WOO_CART_ALL_IN_ONE_INC', VI_WOO_CART_ALL_IN_ONE_DIR . "includes" . DIRECTORY_SEPARATOR );
 

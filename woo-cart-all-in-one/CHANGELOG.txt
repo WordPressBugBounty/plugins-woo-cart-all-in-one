@@ -1,3 +1,6 @@
+/**1.1.22 - 2026.02.06**/
+- Updated: Only specific conditional tags are supported in the “Assign page” option.
+
 /**1.1.21 - 2026.01.23**/
 - Updated: VillaTheme support
 
