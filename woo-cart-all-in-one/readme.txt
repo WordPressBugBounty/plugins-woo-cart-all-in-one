@@ -3,8 +3,8 @@ Contributors: villatheme, mrt3vn
 Donate link: http://www.villatheme.com/donate
 Tags: Cart All In One For Woocommerce, woocommerce mini cart, wc mini cart, wc cart, wc sticky cart
 Requires at least: 5.0
-Tested up to: 6.9
-WC tested up to: 10.6
+Tested up to: 7.0
+WC tested up to: 10.8.1
 Stable tag: trunk
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -304,6 +304,10 @@ All features from the free version.
 
 
 == Changelog ==
+/**1.1.24 - 2026.06.20**/
+- Updated: VillaTheme support
+- Updated: Compatible with WP 7.0 and WC 10.8.1
+
 /**1.1.23 - 2026.03.20**/
 - Updated: Compatible with WC 10.6
 
