@@ -135,7 +135,7 @@ class VI_WOO_CART_ALL_IN_ONE_Admin_Cart {
                                     <label ><?php esc_html_e( 'Enable sidebar cart icon', 'woo-cart-all-in-one' ); ?></label>
                                 </th>
                                 <td>
-                                    <a class="vi-ui button" href="https://1.envato.market/bW20B"
+                                    <a class="vi-ui button" href="https://villatheme.com/extensions/woocommerce-cart-all-in-one/"
                                        target="_blank"><?php esc_html_e( 'Unlock This Feature', 'woo-cart-all-in-one' ); ?> </a>
                                     <p class="description">
 				                        <?php
@@ -179,7 +179,7 @@ class VI_WOO_CART_ALL_IN_ONE_Admin_Cart {
                                     <label ><?php esc_html_e( 'Class/Id to open sidebar cart content', 'woo-cart-all-in-one' ); ?></label>
                                 </th>
                                 <td>
-                                    <a class="vi-ui button" href="https://1.envato.market/bW20B"
+                                    <a class="vi-ui button" href="https://villatheme.com/extensions/woocommerce-cart-all-in-one/"
                                        target="_blank"><?php esc_html_e( 'Unlock This Feature', 'woo-cart-all-in-one' ); ?> </a>
                                     <p class="description">
 				                        <?php
@@ -196,7 +196,7 @@ class VI_WOO_CART_ALL_IN_ONE_Admin_Cart {
                                     <label ><?php esc_html_e( 'Enable', 'woo-cart-all-in-one' ); ?></label>
                                 </th>
                                 <td>
-                                    <a class="vi-ui button" href="https://1.envato.market/bW20B"
+                                    <a class="vi-ui button" href="https://villatheme.com/extensions/woocommerce-cart-all-in-one/"
                                        target="_blank"><?php esc_html_e( 'Unlock This Feature', 'woo-cart-all-in-one' ); ?> </a>
                                     <p class="description">
 					                    <?php
@@ -313,7 +313,7 @@ class VI_WOO_CART_ALL_IN_ONE_Admin_Cart {
                                     </label>
                                 </th>
                                 <td>
-                                    <a class="vi-ui button" href="https://1.envato.market/bW20B"
+                                    <a class="vi-ui button" href="https://villatheme.com/extensions/woocommerce-cart-all-in-one/"
                                        target="_blank"><?php esc_html_e( 'Unlock This Feature', 'woo-cart-all-in-one' ); ?> </a>
                                 </td>
                             </tr>
@@ -411,14 +411,14 @@ class VI_WOO_CART_ALL_IN_ONE_Admin_Cart {
                                     <label for="vi-wcaio-sb_enable-checkbox"><?php esc_html_e( 'Enable', 'woo-cart-all-in-one' ); ?></label>
                                 </th>
                                 <td>
-                                    <a class="vi-ui button" href="https://1.envato.market/bW20B"
+                                    <a class="vi-ui button" href="https://villatheme.com/extensions/woocommerce-cart-all-in-one/"
                                        target="_blank"><?php esc_html_e( 'Unlock This Feature', 'woo-cart-all-in-one' ); ?> </a>
                                 </td>
                             </tr>
                         </table>
                     </div>
                     <div class="vi-ui bottom attached tab segment" data-tab="recently_viewed">
-                        <a class="vi-ui button" href="https://1.envato.market/bW20B"
+                        <a class="vi-ui button" href="https://villatheme.com/extensions/woocommerce-cart-all-in-one/"
                            target="_blank"><?php esc_html_e( 'Unlock This Feature', 'woo-cart-all-in-one' ); ?> </a>
                     </div>
                     <p class="vi-wcuf-save-wrap">

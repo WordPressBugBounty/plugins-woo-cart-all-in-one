@@ -19,11 +19,11 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 						echo sprintf( '<span class="description customize-control-description">%s</span>', esc_html( $this->description ) );
 					}
 					if ( ! empty( $this->choices['button'] ) ) {
-						echo sprintf( '<a class="button vi-wcaio-premium" href="https://1.envato.market/bW20B"  target="_blank" >%s</a>', esc_html__( 'Unlock This Feature', 'woo-cart-all-in-one' ) );
+						echo sprintf( '<a class="button vi-wcaio-premium" href="https://villatheme.com/extensions/woocommerce-cart-all-in-one/"  target="_blank" >%s</a>', esc_html__( 'Unlock This Feature', 'woo-cart-all-in-one' ) );
 					}
                     if ( ! empty($this->choices['img_src'] ) ) {
                         foreach ($this->choices['img_src'] as $img) {
-	                        echo sprintf( '<a class="vi-wcaio-premium" href="https://1.envato.market/bW20B" target="_blank" title="%s"><img src="%s" alt=""></a>',
+	                        echo sprintf( '<a class="vi-wcaio-premium" href="https://villatheme.com/extensions/woocommerce-cart-all-in-one/" target="_blank" title="%s"><img src="%s" alt=""></a>',
 		                        esc_html__( 'Unlock This Feature', 'woo-cart-all-in-one' ), esc_url( $img ) );
                         }
                     }

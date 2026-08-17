@@ -40,7 +40,7 @@ class VI_WOO_CART_ALL_IN_ONE_Admin_Admin {
 					'support'   => 'https://wordpress.org/support/plugin/woo-cart-all-in-one/',
 					'docs'      => 'http://docs.villatheme.com/?item=woocommerce-cart-all-in-one',
 					'review'    => 'https://wordpress.org/support/plugin/woo-cart-all-in-one/reviews/?rate=5#rate-response',
-					'pro_url'   => 'https://1.envato.market/bW20B',
+					'pro_url'   => 'https://villatheme.com/extensions/woocommerce-cart-all-in-one/',
 					'css'       => VI_WOO_CART_ALL_IN_ONE_CSS,
 					'image'     => VI_WOO_CART_ALL_IN_ONE_IMAGES,
 					'slug'      => 'woo-cart-all-in-one',

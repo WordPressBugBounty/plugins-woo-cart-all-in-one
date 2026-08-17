@@ -1,127 +1,133 @@
-/**1.1.24 - 2026.06.20**/
+*** Cart All In One For WooCommerce Changelog ***
+
+2026.08.17 - version 1.1.25
+- Updated: Compatibility check with WC 11.0
+- Updated: Optimize code
+
+2026.06.20 - version 1.1.24
 - Updated: VillaTheme support
 - Updated: Compatible with WP 7.0 and WC 10.8.1
 
-/**1.1.23 - 2026.03.20**/
+2026.03.20 - version 1.1.23
 - Updated: Compatible with WC 10.6
 
-/**1.1.22 - 2026.02.06**/
+2026.02.06 - version 1.1.22
 - Updated: Only specific conditional tags are supported in the “Assign page” option.
 
-/**1.1.21 - 2026.01.23**/
+2026.01.23 - version 1.1.21
 - Updated: VillaTheme support
 
-/**1.1.20 - 2025.10.06**/
+2025.10.06 - version 1.1.20
 – Updated: Update support class
 
-/**1.1.19 - 2025.07.26**/
+2025.07.26 - version 1.1.19
 - Updated: Compatibility with navigation block
 - Updated: Compatibility with WC cart block
 - Updated: Display the notification of adding products to the cart successfully after adding to the cart by Ajax without reloading
 
-/**1.1.18 - 2025.02.28**/
+2025.02.28 - version 1.1.18
 - Updated: Update support file
 
-/**1.1.17 - 2024.12.28**/
+2024.12.28 - version 1.1.17
 - Updated: Compatible with WP 6.7 and WC 9.5
 - Updated: Update support class
 
-/**1.1.16 - 2024.10.28**/
+2024.10.28 - version 1.1.16
 - Updated: Compatible with WP 6.6 and WC 9.3
 - Updated: Enhanced UX in customize
 
-**1.1.15 - 2024.04.26**/
+2024.04.26 - version 1.1.15
 – Updated: Delete the old description for the 'Assign page' and add the link of the WC condition tag
 
-/**1.1.14 - 2024.04.13**/
+2024.04.13 - version 1.1.14
 – Updated: Compatible with WP 6.5 and  WC 8.7
 – Updated: Update support class
 
-/**1.1.13 – 2023.08.04**/
+2023.08.04 - version 1.1.13
 – Updated: Compatible Storefront menu
 – Updated: Compatible Elementor v:3.15
 – Updated: Update support class
 
-/**1.1.13 – 2023.08.04**/
+2023.08.04 - version 1.1.13
 – Updated: Compatible Storefront menu
 – Updated: Compatible Elementor v:3.15
 – Updated: Update support class
 
-/**1.1.12 – 2023.04.12**/
+2023.04.12 - version 1.1.12
 – Updated: Compatible with 'High-Performance order storage (COT)'
 
-/**1.1.11 – 2022.12.15**/
+2022.12.15 - version 1.1.11
 - Updated: Show on cart & checkout page
 – Fixed: Add missing nonce
 
-/**1.1.10 – 2022.10.17**/
+2022.10.17 - version 1.1.10
 – Updated: Update support class
 
-/**1.1.9 – 2022.05.30**/
+2022.05.30 - version 1.1.9
 – Updated: Compatible with WP 6.0
 – Updated: Update support class
 
-/**1.1.8 - 2022.05.19**/
+2022.05.19 - version 1.1.8
 - Updated: Update support class
 
-/**1.1.7 - 2022.04.20**/
+2022.04.20 - version 1.1.7
 - Updated: Update support class
 
-/**1.1.6 - 2022.03.29**/
+2022.03.29 - version 1.1.6
 - Updated: Update support class
 
-/**1.1.5 - 2022.03.21**/
+2022.03.21 - version 1.1.5
 - Updated: support class
 
-/**1.1.4 - 2022.01.10**/
+2022.01.10 - version 1.1.4
 - Updated: support class
 
-/**1.1.3 - 2021.11.15**/
+2021.11.15 - version 1.1.3
 - Fixed: Can not translate 'Coupon code' in the sidebar cart
 
-/**1.1.2 - 2021.10.26**/
+2021.10.26 - version 1.1.2
 - Added: New display style for the sidebar cart icon
 
-/**1.1.1.0 - 2021.10.07**/
+2021.10.07 - version 1.1.1.0
 - Fixed: Can not get list applied coupons
 
-/**1.1.0.9 - 2021.07.31**/
+2021.07.31 - version 1.1.0.9
 - Updated: support class
 
-/**1.1.0.8 - 2021.06.26**/
+2021.06.26 - version 1.1.0.8
 - Updated: Allow to change enable/disable special feature on the customizer
 - Updated: support class
 - Added: Option enable/disable show the product title link on Sidebar Cart List Products
 
-/**1.1.0.7 - 2021.06.03**/
+2021.06.03 - version 1.1.0.7
 - Fixed: Can not display the product plus slide
 
-/**1.1.0.6 - 2021.06.02**/
+2021.06.02 - version 1.1.0.6
 - Updated: support class
 
-/**1.1.0.5 - 2021.05.11**/
+2021.05.11 - version 1.1.0.5
 - Fixed: refresh page after add to cart ajax on single product
 
-/**1.1.0.4 - 2021.05.04**/
+2021.05.04 - version 1.1.0.4
 - Fixed: Sidebar cart icon don't show if horizontal/vertical is 0
 - Fixed: fly product image to cart on single page
 
-/**1.1.0.3 - 2021.04.09**/
+2021.04.09 - version 1.1.0.3
 - Fixed: Ajax add to cart
 
-/**1.1.0.2 - 2021.04.09**/
+2021.04.09 - version 1.1.0.2
 - Added: Display style of products price on Sidebar Cart List Products
 - Updated: Display style of variation pop-up
 - Fixed: Find variation on variation pop-up
 - Fixed: Style of loading icon
 
-/**1.1.0.1 - 2021.03.01**/
+2021.03.01 - version 1.1.0.1
 - Fixed: Change variation on variation pop-up
 - Fixed: Update cart after adding product without refresh page
 - Updated: Change product image size on the product plus slide
 - Updated: Change time to show message popup
 
-/**1.1.0 - 2021.01.26**/
+2021.01.26 - version 1.1.0
 - Added: Link to pro
 - Added: Exclude products which are not applied ajax add to cart
 - Added: Hide the notification of adding products to cart successfully after adding to cart by Ajax
@@ -138,27 +144,27 @@
 - Updated: Assign pages to show Sidebar Cart
 - Updated: Link to documentation
 
-/**1.0.9.1 - 2020.04.23**/
+2020.04.23 - version 1.0.9.1
 - Update: support class
 
-/*1.0.9 - 2020.04.11*/
+2020.04.11 - version 1.0.9
 - fixed: Menu cart style
 – Updated: Compatible with WP 5.4 and WC4.0
 
-/*1.0.8.3 - 2020.03.23*/
+2020.03.23 - version 1.0.8.3
 - updated: declare text domain
 
-/*1.0.8.2 - 2020.03.16*/
+2020.03.16 - version 1.0.8.2
 - updated: declare text domain
 
-/*1.0.8.1 - 2020.02.10*/
+2020.02.10 - version 1.0.8.1
 - fixed: Subtotals not visible in cart
 
-/*1.0.8 - 2020.01.30*/
+2020.01.30 - version 1.0.8
 - fixed: Add variation to cart with popup
 - added: Hide popup after add variation to cart
 
-/*1.0.7 - 2019.12.30*/
+2019.12.30 - version 1.0.7
 - fixed: Disabling variation popup
 - fixed: Changing variation “add to cart”
 - fixed: Able to add items to cart When Ajax add to cart is enabled
@@ -168,7 +174,7 @@
 - added: Show meta data of cart item
 - added: Reduce size of sidebar cart icon
 
-/*1.0.6 - 2019.11.16*/
+2019.11.16 - version 1.0.6
 - Updated: Sanitize input data
 
 /*1.0.0  - 2019.*/
