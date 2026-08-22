@@ -1,4 +1,7 @@
 *** Cart All In One For WooCommerce Changelog ***
+2026.08.22 - version 1.1.26
+- Updated: Compatibility check with WP 7.1
+- Updated: VillaThem support
 
 2026.08.17 - version 1.1.25
 - Updated: Compatibility check with WC 11.0
