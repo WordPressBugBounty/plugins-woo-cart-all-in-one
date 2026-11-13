@@ -7,7 +7,7 @@
  * Author URI:https://villatheme.com
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Version: 1.1.26
+ * Version: 1.1.27
  * Text Domain: woo-cart-all-in-one
  * Domain Path: /languages
  * Copyright 2019-2026 VillaTheme.com. All rights reserved.
@@ -16,13 +16,13 @@
  * Requires at least: 5.0
  * Tested up to: 7.1
  * WC requires at least: 7.0
- * WC tested up to: 11.0
+ * WC tested up to: 11.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
-define( 'VI_WOO_CART_ALL_IN_ONE_VERSION', '1.1.26' );
+define( 'VI_WOO_CART_ALL_IN_ONE_VERSION', '1.1.27' );
 define( 'VI_WOO_CART_ALL_IN_ONE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'VI_WOO_CART_ALL_IN_ONE_INC', VI_WOO_CART_ALL_IN_ONE_DIR . "includes" . DIRECTORY_SEPARATOR );
 
@@ -45,7 +45,7 @@ class WOO_CART_ALL_IN_ONE {
 
 		$environment = new VillaTheme_Require_Environment( [
 				'plugin_name'     => 'CartSuite – Cart All In One For WooCommerce',
-				'php_version'     => '7.0',
+				'php_version'     => '7.4',
 				'wp_version'      => '5.0',
 				'require_plugins' => [
 					[

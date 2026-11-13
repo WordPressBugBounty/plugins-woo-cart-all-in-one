@@ -8,8 +8,8 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Frontend {
 
 	public function __construct() {
 		$this->settings = new VI_WOO_CART_ALL_IN_ONE_DATA();
-		if (! $this->settings->enable( 'sc_' ) && ! $this->settings->enable( 'mc_' ) ) {
-			if ( ! $this->settings->get_params( 'ajax_atc_pd_variable' ) ) {
+		if ( ! $this->settings->enable( 'sc_' ) && ! $this->settings->enable( 'mc_' ) ) {
+			if ( ! $this->settings->get_params( 'ajax_atc_pd_variable' ) && ! $this->settings->get_params( 'ajax_atc' ) ) {
 				return;
 			}
 		}
@@ -39,7 +39,7 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Frontend {
 		} else {
 			wp_enqueue_style( 'vi-wcaio-frontend', VI_WOO_CART_ALL_IN_ONE_CSS . 'frontend.min.css', array(), VI_WOO_CART_ALL_IN_ONE_VERSION );
 		}
-		wp_add_inline_style( 'vi-wcaio-frontend', wp_unslash( $this->settings->get_params( 'custom_css' ) ) );
+		wp_add_inline_style( 'vi-wcaio-frontend', viwcaio_sanitize_custom_css( $this->settings->get_params( 'custom_css' ) ) );
 	}
 
 	public static function add_ajax_events() {
@@ -306,7 +306,7 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Frontend {
 		die();
 	}
 	public function block_update_cart() {
-		if (!function_exists('woocommerce_store_api_register_endpoint_data') || !class_exists('\Automattic\WooCommerce\StoreApi\Schemas\V1\CartSchema')){
+		if ( ! function_exists( 'woocommerce_store_api_register_endpoint_data' ) || ! class_exists( '\Automattic\WooCommerce\StoreApi\Schemas\V1\CartSchema' ) ) {
 			return;
 		}
 		woocommerce_store_api_register_endpoint_data(
@@ -429,15 +429,18 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Frontend {
 		return $args;
 	}
 	public function viwcaio_change_sc_pd_price_style() {
-		check_ajax_referer('vicaio_nonce','vicaio_nonce');
-		$result         = array(
+		check_ajax_referer( 'vicaio_nonce', 'vicaio_nonce' );
+		$result = array(
 			'status'  => '',
 			'message' => '',
 		);
+		if ( ! current_user_can( 'customize' ) ) {
+			wp_send_json( $result );
+		}
 		$style = isset( $_POST['style'] ) ? sanitize_text_field( wp_unslash( $_POST['style'] ) ) : '';
 		if ( $style ) {
 			ob_start();
-			VI_WOO_CART_ALL_IN_ONE_Frontend_Sidebar_Cart_Content::get_sidebar_content_pd_html( WC()->cart,$style );
+			VI_WOO_CART_ALL_IN_ONE_Frontend_Sidebar_Cart_Content::get_sidebar_content_pd_html( WC()->cart, $style );
 			$html              = ob_get_clean();
 			$result['status']  = $html ? 'success' : '';
 			$result['message'] = $html;
@@ -446,12 +449,15 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Frontend {
 	}
 
 	public function viwcaio_get_sc_footer_pd_plus_html() {
-		check_ajax_referer('vicaio_nonce','vicaio_nonce');
+		check_ajax_referer( 'vicaio_nonce', 'vicaio_nonce' );
 		$result = array(
 			'status'  => '',
 			'message' => '',
 		);
-		$type   = isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : '';
+		if ( ! current_user_can( 'customize' ) ) {
+			wp_send_json( $result );
+		}
+		$type = isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : '';
 		if ( $type ) {
 			$html              = VI_WOO_CART_ALL_IN_ONE_Frontend_Sidebar_Cart_Content::get_product_plus( $type );
 			$result['status']  = $html ? 'success' : '';
@@ -460,13 +466,15 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Frontend {
 		wp_send_json( $result );
 	}
 
-
 	public function viwcaio_get_menu_cart_text() {
-		check_ajax_referer('vicaio_nonce','vicaio_nonce');
-		$result          = array(
+		check_ajax_referer( 'vicaio_nonce', 'vicaio_nonce' );
+		$result = array(
 			'status'  => '',
 			'message' => '',
 		);
+		if ( ! current_user_can( 'customize' ) ) {
+			wp_send_json( $result );
+		}
 		$display_type    = isset( $_POST['display_type'] ) ? sanitize_text_field( $_POST['display_type'] ) : '';
 		$cart_total_type = isset( $_POST['cart_total_type'] ) ? sanitize_text_field( $_POST['cart_total_type'] ) : '';
 		if ( $display_type && $cart_total_type ) {
@@ -489,11 +497,14 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Frontend {
 	}
 
 	public function viwcaio_get_class_icon() {
-		check_ajax_referer('vicaio_nonce','vicaio_nonce');
-		$result   = array(
+		check_ajax_referer( 'vicaio_nonce', 'vicaio_nonce' );
+		$result = array(
 			'status'  => '',
 			'message' => '',
 		);
+		if ( ! current_user_can( 'customize' ) ) {
+			wp_send_json( $result );
+		}
 		$settings = new VI_WOO_CART_ALL_IN_ONE_DATA();
 		$icon_id  = isset( $_POST['icon_id'] ) ? sanitize_text_field( $_POST['icon_id'] ) : '';
 		$type     = isset( $_POST['type'] ) ? sanitize_text_field( $_POST['type'] ) : '';

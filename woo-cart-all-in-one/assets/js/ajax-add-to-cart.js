@@ -14,7 +14,7 @@ jQuery(document).ready(function ($) {
                 button.removeClass('vi-wcaio-product-bt-atc-loading');
                 return false;
             }
-            if (form.hasClass('.variations_form')) {
+            if (form.hasClass('variations_form')) {
                 let variation_id_check = parseInt(form.find('input[name=variation_id]').val());
                 if (!variation_id_check || variation_id_check <= 0) {
                     button.removeClass('vi-wcaio-product-bt-atc-loading');

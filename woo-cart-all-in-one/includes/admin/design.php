@@ -300,8 +300,8 @@ class VI_WOO_CART_ALL_IN_ONE_Admin_Design {
 		?>
         <style type="text/css" id="vi-wcaio-preview-custom_css">
             <?php
-            if ($custom_css = $this->get_params_customize('custom_css')){
-                echo wp_kses_post($custom_css);
+            if ( $custom_css = $this->get_params_customize( 'custom_css' ) ) {
+                echo viwcaio_sanitize_custom_css( $custom_css ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS sanitized for style block.
             }
              ?>
         </style>
@@ -2386,7 +2386,7 @@ class VI_WOO_CART_ALL_IN_ONE_Admin_Design {
 				'default'           => $this->settings->get_default( 'custom_css' ),
 				'type'              => 'option',
 				'capability'        => 'manage_options',
-				'sanitize_callback' => 'wp_kses_post',
+				'sanitize_callback' => 'viwcaio_sanitize_custom_css',
 				'transport'         => 'postMessage',
 			)
 		);

@@ -54,8 +54,29 @@ if ( ! function_exists( 'viwcaio_sanitize_kses' ) ) {
 		if ( is_array( $data ) ) {
 			return array_map( 'viwcaio_sanitize_kses', $data );
 		} else {
-			return is_scalar($data)? wp_kses_post( wp_unslash( $data ) ):$data;
+			return is_scalar( $data ) ? wp_kses_post( wp_unslash( $data ) ) : $data;
 		}
+	}
+}
+if ( ! function_exists( 'viwcaio_sanitize_custom_css' ) ) {
+	/**
+	 * Sanitize custom CSS before inline output / customize save.
+	 *
+	 * @param mixed $css Custom CSS option value.
+	 *
+	 * @return string
+	 */
+	function viwcaio_sanitize_custom_css( $css ) {
+		$css = is_string( $css ) ? wp_unslash( $css ) : '';
+		$css = wp_strip_all_tags( $css );
+		$css = preg_replace( '/@import\b[^;]*;?/i', '', $css );
+		$css = preg_replace( '/\bexpression\s*\(/i', '', is_string( $css ) ? $css : '' );
+		$css = preg_replace( '/\bbehavior\s*:/i', '', is_string( $css ) ? $css : '' );
+		$css = preg_replace( '/-moz-binding\s*:/i', '', is_string( $css ) ? $css : '' );
+		$css = preg_replace( '/\burl\s*\(/i', '', is_string( $css ) ? $css : '' );
+		$css = str_ireplace( array( '</style>', '<style' ), '', is_string( $css ) ? $css : '' );
+
+		return is_string( $css ) ? $css : '';
 	}
 }
 

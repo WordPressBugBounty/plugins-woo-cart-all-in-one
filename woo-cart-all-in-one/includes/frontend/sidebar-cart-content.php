@@ -22,7 +22,7 @@ class VI_WOO_CART_ALL_IN_ONE_Frontend_Sidebar_Cart_Content {
 			global $wp_customize;
 			$this->customize_data = $wp_customize;
 		}
-		$sc_footer_message = self::$settings->get_params( 'sc_footer_message' );
+		$sc_footer_message = (string) self::$settings->get_params( 'sc_footer_message' );
 		$has_product_plus  = strpos( $sc_footer_message, '{product_plus}' );
 		wp_enqueue_style( 'vi-wcaio-loading', VI_WOO_CART_ALL_IN_ONE_CSS . 'loading.min.css', array(), VI_WOO_CART_ALL_IN_ONE_VERSION );
 		$suffix = WP_DEBUG ? '' : 'min.';

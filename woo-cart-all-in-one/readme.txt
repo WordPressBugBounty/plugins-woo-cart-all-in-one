@@ -6,7 +6,7 @@ Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 7.4
 WC requires at least: 7.0
-WC tested up to: 11.0
+WC tested up to: 11.2
 Stable tag: trunk
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -306,6 +306,16 @@ All features from the free version.
 
 
 == Changelog ==
+
+2026.11.13 - version 1.1.27
+- Fixed: AJAX add to cart works when only that feature is enabled
+- Fixed: Variable product AJAX add to cart variation selection check
+- Fixed: PHP 8.5 strpos warning on empty sidebar footer message
+- Fixed: Customize preview AJAX requires customize capability
+- Updated: Sanitize custom CSS before inline output
+- Updated: Register Store API cart extension once per request
+- Updated: Compatibility check with WC 11.2
+- Updated: Environment PHP require check to 7.4
 
 2026.08.22 - version 1.1.26
 - Updated: Compatibility check with WP 7.1
